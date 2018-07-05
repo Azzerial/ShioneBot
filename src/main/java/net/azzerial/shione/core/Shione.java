@@ -35,8 +35,7 @@ public class Shione {
 	public static final int INVALID_INFORMATION_PROVIDED = 10;
 	public static final int BAD_TOKEN_PROVIDED = 11;
 	public static final int UNABLE_TO_CONNECT_TO_DISCORD = 12;
-	public static final int INSUPPORTED_SYSTEM = 13;
-	public static final int UNKNOWN_CASE = 14;
+	public static final int UNSUPPORTED_SYSTEM = 13;
 	
 	private static JDA api;
 	private static SC2D scapi;
@@ -154,6 +153,7 @@ public class Shione {
 		} catch (IOException | InterruptedException e) {
 			System.out.println(ShioneInfo.getTime() + "[Core/Shione]: Failed to relaunch in \"UTF-8\" mode using: -Dfile.encoding=UTF-8");
 			e.printStackTrace();
+			System.exit(UNSUPPORTED_SYSTEM);
 		}
 	}
 	
