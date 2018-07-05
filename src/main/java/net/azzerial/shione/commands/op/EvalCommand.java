@@ -30,9 +30,9 @@ public class EvalCommand extends Command {
 				"java.awt," +
 				"Packages.net.dv8tion.jda.core," +
 				"Packages.net.dv8tion.jda.core.entities," +
-				"Packages.net.dv8tion.jda.core.entities.impl," +
+				"Packages.net.dv8tion.jda.core.entities.impls," +
 				"Packages.net.dv8tion.jda.core.managers," +
-				"Packages.net.dv8tion.jda.core.managers.impl," +
+				"Packages.net.dv8tion.jda.core.managers.impls," +
 				"Packages.net.dv8tion.jda.core.utils," +
 				"Packages.net.azzerial.shione.commands," +
 				"Packages.net.azzerial.shione.core," +
@@ -43,7 +43,7 @@ public class EvalCommand extends Command {
 				"Packages.net.azzerial.shione.sc2d," +
 				"Packages.net.azzerial.shione.sc2d.builders," +
 				"Packages.net.azzerial.shione.sc2d.entities," +
-				"Packages.net.azzerial.shione.sc2d.entities.impl," +
+				"Packages.net.azzerial.shione.sc2d.entities.impls," +
 				"Packages.net.azzerial.shione.utils" +
 				");"
 			);

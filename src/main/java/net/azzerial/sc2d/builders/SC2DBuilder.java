@@ -20,9 +20,9 @@ public class SC2DBuilder {
 		this.sc2d = loadSC2D(settings);
 	}
 	
-	public SC2DBuilder getInstance(Settings settings) {
+	public static SC2DBuilder getInstance(Settings settings) {
 		if (instance == null) {
-			this.instance = new SC2DBuilder(settings);
+			instance = new SC2DBuilder(settings);
 		}
 		return (instance);
 	}

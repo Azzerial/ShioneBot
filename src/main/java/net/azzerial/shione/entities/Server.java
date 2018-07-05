@@ -71,8 +71,8 @@ public class Server {
 	
 	public void loadServerData() {
 		loadAdmin();
-		loadChannels();
-		loadSettings();
+//		loadChannels();
+//		loadSettings();
 	}
 	
 	public void loadAdmin() {		
@@ -107,8 +107,8 @@ public class Server {
 	
 	public void saveServerData() {
 		saveAdmin();
-		saveChannels();
-		saveSettings();
+//		saveChannels();
+//		saveSettings();
 	}
 	
 	public void saveAdmin() {

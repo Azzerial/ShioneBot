@@ -1,4 +1,4 @@
-package net.azzerial.sc2d.entities.impl;
+package net.azzerial.sc2d.entities.impls;
 
 
 import java.util.Calendar;

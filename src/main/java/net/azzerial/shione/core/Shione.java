@@ -83,7 +83,7 @@ public class Shione {
 			jda_builder.setGame(settings.getGame());
 			jda_builder.setStatus(settings.getStatus());
 			
-			// Registers the commands.
+			// Register the commands.
 			HelpCommand command = new HelpCommand();
 			jda_builder.addEventListener(command.registerCommand(command));
 			jda_builder.addEventListener(command.registerCommand(new AdminCommand()));
@@ -98,13 +98,13 @@ public class Shione {
 			// Login to Discord.
 			api = jda_builder.buildBlocking();
 
-			// Event Listeners
+			// Add event listeners.
 			waiter = new EventWaiter(Executors.newSingleThreadScheduledExecutor());
 			api.addEventListener(waiter);
 			api.addEventListener(new GuildEvent());
 			
 			// Start the SC2D api.
-			SC2DBuilder sc2d_builder = SC2DBuilder.getInstance(settings);
+			SC2DBuilder sc2d_builder = new SC2DBuilder(settings);
 			scapi = sc2d_builder.build();
 			
 			// Set the Ops list.

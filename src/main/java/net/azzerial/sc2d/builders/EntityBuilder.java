@@ -3,7 +3,7 @@
 import java.util.Calendar;
 
 import net.azzerial.sc2d.entities.Artist;
-import net.azzerial.sc2d.entities.impl.ArtistImpl;
+import net.azzerial.sc2d.entities.impls.ArtistImpl;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
