@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,7 +13,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.azzerial.shione.command.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.dialogs.VerficationDialog;
@@ -139,7 +138,7 @@ public class RegisterCommand extends Command {
 		 * 4. Really to go.
 		 * 
 		 * You can only store up to 5 accounts.
-		 * Accounts order can be changed with settings command.
+		 * Accounts order can be changed with settings commands.
 		 * [1][2][3][4][5][⬆][⬇] -> clickable reaction emojis to change the order
 		 */
 		
@@ -155,7 +154,7 @@ public class RegisterCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this command to register your SoundCloud account in Shione's Database.** " + "\n"
+		return ("**Use this commands to register your SoundCloud account in Shione's Database.** " + "\n"
 			+ "Registering your account will enable Shione to link your SoundCloud account to Discord.\n"
 //			+ "You can register multiple accounts if needed, but you need to register at least one in order to use Shione's commands, which can be viewed by typing `./help`.\n"
 			+ "If ever someone has registered your account or that you can't register it, please PM **Azzerial#5348**.");

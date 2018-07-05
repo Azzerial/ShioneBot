@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,7 +96,7 @@ public class OpCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this command to edit the bot's ops.**");
+		return ("**Use this commands to edit the bot's ops.**");
 	}
 
 	@Override

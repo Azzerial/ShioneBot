@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -96,7 +96,7 @@ public class AdminCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this command to edit the bot's admins of this server.**");
+		return ("**Use this commands to edit the bot's admins of this server.**");
 	}
 
 	@Override

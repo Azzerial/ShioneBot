@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.Arrays;
 import java.util.List;

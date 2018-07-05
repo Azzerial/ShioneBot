@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -43,20 +43,20 @@ public abstract class Command extends ListenerAdapter {
 		}
 		if (containsCommand(event.getMessage()) && isOpRequired()) {
 			if (!Shione.getPermissions().isOp(event.getAuthor())) {
-				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Op.");
+				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the commands but wasn't Op.");
 				sendMissingMessage(event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser(), true);
 				return;
 			}
 		}
 		if (containsCommand(event.getMessage()) && isAdminRequired()) {
 			if (!GuildEvent.getServer(event.getGuild().getId()).isAdmin(event.getAuthor())) {
-				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Admin.");
+				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the commands but wasn't Admin.");
 				sendMissingMessage(event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser(), false);
 				return;
 			}
 		}
 		if (containsCommand(event.getMessage())) {
-			System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") runned the command.");
+			System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") runned the commands.");
 			String output = onCommand(event, commandArgs(event.getMessage()), event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser());
 			System.out.println("[" + getName() + "]" +
 			(output.startsWith("!") ? "(FAILURE): " + output.substring(1) : "(SUCCESS): " + output));

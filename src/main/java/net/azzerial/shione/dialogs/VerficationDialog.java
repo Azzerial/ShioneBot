@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-import net.azzerial.shione.command.Command;
+import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.utils.EmotesUtils;
 import net.azzerial.shione.utils.MessageUtils;
 import net.dv8tion.jda.core.EmbedBuilder;

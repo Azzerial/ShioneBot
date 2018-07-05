@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +33,7 @@ public class EvalCommand extends Command {
 				"Packages.net.dv8tion.jda.core.managers," +
 				"Packages.net.dv8tion.jda.core.managers.impl," +
 				"Packages.net.dv8tion.jda.core.utils," +
-				"Packages.net.azzerial.shione.command," +
+				"Packages.net.azzerial.shione.commands," +
 				"Packages.net.azzerial.shione.core," +
 				"Packages.net.azzerial.shione.deprecated," +
 				"Packages.net.azzerial.shione.dialogs," +
@@ -112,8 +112,8 @@ public class EvalCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this command to execute given Java code.** "
-			+ "Use it wisely as it can destroy the bot. All use of this command is stored in a log file (to prevent abuse or accidents).\n"
+		return ("**Use this commands to execute given Java code.** "
+			+ "Use it wisely as it can destroy the bot. All use of this commands is stored in a log file (to prevent abuse or accidents).\n"
 			+ "The following variables can be accessed:\n"
 			+ "`event`, `args`, `message`, `channel`, `author`, `self`, `jda`, `sc2d`, `permissions`.\n"
 			+ "And if typed in a guild: `guild`, `member`.");

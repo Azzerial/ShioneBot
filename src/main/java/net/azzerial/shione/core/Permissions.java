@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.entities.User;
 
 public class Permissions {
 	
-	public static final String OP_REQUIRED_MESSAGE = "You do not have the permission to run this command. (Op required)";
+	public static final String OP_REQUIRED_MESSAGE = "You do not have the permission to run this commands. (Op required)";
 	
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	private final Path opsFile = new File(".").toPath().resolve("Ops.json");

@@ -14,7 +14,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class GuildEvent extends ListenerAdapter {
 	
-	public static final String ADMIN_REQUIRED_MESSAGE = "You do not have the permission to run this command. (Admin required)";
+	public static final String ADMIN_REQUIRED_MESSAGE = "You do not have the permission to run this commands. (Admin required)";
 	
 	private static TreeMap<String, Server> guilds;
 

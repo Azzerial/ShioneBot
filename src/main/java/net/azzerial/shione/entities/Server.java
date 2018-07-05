@@ -56,7 +56,7 @@ public class Server {
 			this.allowedChannels = new ArrayList<TextChannel>();
 			this.allowedChannels.addAll(Shione.getAPI().getGuildById(guildId).getTextChannels());
 			
-			// Set the list of free roles users can get by typing the iam (role) command
+			// Set the list of free roles users can get by typing the iam (role) commands
 			this.freeRoles = new ArrayList<Role>();
 			
 			// Save the variables values into files

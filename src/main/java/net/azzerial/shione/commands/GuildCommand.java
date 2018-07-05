@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,7 +42,7 @@ public class GuildCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this command to edit the bot guild's settings of this server.**");
+		return ("**Use this commands to edit the bot guild's settings of this server.**");
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class GuildCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "guild prefix //` - Sets Shione's command prefix to `//`."
+			"`" + ShioneInfo.PREFIX + "guild prefix //` - Sets Shione's commands prefix to `//`."
 //			"`" + ShioneInfo.PREFIX + "guild settings` - Opens the bot guild's settings menu."
 		));
 	}

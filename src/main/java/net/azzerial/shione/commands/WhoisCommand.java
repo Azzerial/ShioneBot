@@ -1,10 +1,9 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import net.azzerial.shione.command.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.dialogs.PageDialog;
@@ -32,7 +31,7 @@ public class WhoisCommand extends Command {
 		User user = event.getMessage().getMentionedUsers().get(0);
 
 		if (!RegisterCommand.isRegistered(author)) {
-			sendCommandMessage(channel, author, self, "You need to register in order to user this command.", colorError);
+			sendCommandMessage(channel, author, self, "You need to register in order to user this commands.", colorError);
 			return ("!User wasn't registered.");
 		}
 		if (!RegisterCommand.isRegistered(user)) {
@@ -140,7 +139,7 @@ public class WhoisCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this command to get the SoundCloud informations of a user.**\n"
+		return ("**Use this commands to get the SoundCloud informations of a user.**\n"
 			+ "Note that the mentioned user must have registered.");
 	}
 

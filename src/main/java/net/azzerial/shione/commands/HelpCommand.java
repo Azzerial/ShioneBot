@@ -1,4 +1,4 @@
-package net.azzerial.shione.command;
+package net.azzerial.shione.commands;
 
 import java.util.Arrays;
 import java.util.List;
@@ -63,7 +63,7 @@ public class HelpCommand extends Command {
 				return ("Displayed the " + cmd.getName() + " subcommand menu correctly.");
 			}
 		}
-		return ("!There are no command with this alias.");
+		return ("!There are no commands with this alias.");
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class HelpCommand extends Command {
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
 			"`" + ShioneInfo.PREFIX + "help` - Shows Shione's commands help page.",
-			"`" + ShioneInfo.PREFIX + "help register` - Shows the register command's help page."
+			"`" + ShioneInfo.PREFIX + "help register` - Shows the register commands's help page."
 		));
 	}
 
@@ -135,7 +135,7 @@ public class HelpCommand extends Command {
 		msgContent += "```\n"
 			+ "__SubCommands:__\n"
 			+ "```md\n"
-			+ "* help <command>"
+			+ "* help <commands>"
 			+ "```\n"
 			+ getUsageExamplesBlock() + "\n"
 			+ getAliasesBlock();
