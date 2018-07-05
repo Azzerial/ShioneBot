@@ -11,8 +11,8 @@ public class Avatar {
 	private String id;
 	private AvatarFormat format;
 
-	private String urlPrefix = "https://i1.sndcdn.com/avatars-";
-	private String urlSuffix = ".jpg";
+	private String URL_PREFIX = "https://i1.sndcdn.com/avatars-";
+	private String URL_SUFFIX = ".jpg";
 	
 	public Avatar(String avatarId) {
 		this.id = avatarId;
@@ -31,11 +31,7 @@ public class Avatar {
 		if (format.getFormat().equalsIgnoreCase(AvatarFormat.UNKNOWN.getFormat())) {
 			return (null);
 		}
-		avatarUrl = urlPrefix;
-		avatarUrl += id;
-		avatarUrl += "-";
-		avatarUrl += format.getFormat();
-		avatarUrl += urlSuffix;
+		avatarUrl = URL_PREFIX + id + "-" + format.getFormat() + URL_SUFFIX;
 		return (avatarUrl);
 	}
 	

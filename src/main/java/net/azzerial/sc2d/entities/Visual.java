@@ -11,8 +11,8 @@ public class Visual {
 	private String id;
 	private VisualFormat format;
 
-	private String urlPrefix = "https://i1.sndcdn.com/visuals-";
-	private String urlSuffix = ".jpg";
+	private String URL_PREFIX = "https://i1.sndcdn.com/visuals-";
+	private String URL_SUFFIX = ".jpg";
 	
 	public Visual(String visualId) {
 		this.id = visualId;
@@ -31,11 +31,7 @@ public class Visual {
 		if (format.getFormat().equalsIgnoreCase(VisualFormat.UNKNOWN.getFormat())) {
 			return (null);
 		}
-		visualUrl = urlPrefix;
-		visualUrl += id;
-		visualUrl += "-";
-		visualUrl += format.getFormat();
-		visualUrl += urlSuffix;
+		visualUrl = URL_PREFIX + id + "-" + format.getFormat() + URL_SUFFIX;
 		return (visualUrl);
 	}
 	

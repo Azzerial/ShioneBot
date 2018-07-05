@@ -29,6 +29,7 @@ public class SC2D {
 	 * <br>If the id did not match the required format, returns {@code null}. 
 	 */
 	public Avatar getAvatarById(String avatarId) {
+		// Checks if the avatarId matches SoundCloud's avatar token format.
 		if (avatarId.length() != 19
 		|| !avatarId.matches("^([0-9]{12})-([a-zA-Z0-9]){6}$")) {
 			return (null);
@@ -40,22 +41,22 @@ public class SC2D {
 	 * Gets the {@link Artist Artist} object for the provided id.
 	 * <br>If the provided id does not have a match in SoundCloud's database, this will return {@code null}.
 	 * 
-	 * @param userId
+	 * @param artistId
 	 * The id relating to the {@link Artist Artist} we wish to retrieve.
 	 * 
 	 * @return The matching {@link Artist Artist}.
 	 * <br>If the id did not have a match in SoundCloud's database, returns {@code null}. 
 	 */
-	public Artist getUserById(String userId) {
-		if (userId == null || userId.isEmpty()) {
+	public Artist getArtistById(String artistId) {
+		if (artistId == null || artistId.isEmpty()) {
 			return (null);
 		}
-		// Checks if the userId is only made of digits.
-		if (!userId.matches("^([0-9]+)$")) {
+		// Checks if the artistId is only made of digits.
+		if (!artistId.matches("^([0-9]+)$")) {
 			return (null);
 		}
-		JSONObject userObj = api.requestUserToSoundCloudApi(userId);
-		JSONObject userObj2 = api.requestUserToSoundCloudApiV2(userId);
+		JSONObject userObj = api.requestJson(api.pathArtistEntity(artistId));
+		JSONObject userObj2 = api.requestJson(api.pathArtistEntity2(artistId));
 		if (userObj == null || userObj2 == null) {
 			return (null);
 		}
@@ -72,25 +73,26 @@ public class SC2D {
 	 * @return The {@code String} representation of the matching {@link Artist Artist} id.
 	 * <br>If the permalink did not have a match in SoundCloud's database, returns {@code null}. 
 	 */
-	public String getUserIdFromPermalink(String permalink) {
+	public String getArtistIdFromPermalink(String permalink) {
 		// Checks if the permalink isn't invalid.
 		if (permalink == null || permalink.isEmpty()) {
 			return (null);
 		}
-		return (api.requestUserIdToSoundCloudApi(permalink));
+		return (api.getArtistId(permalink));
 	}
 	
 	/**
 	 * Gets the {@link Visual Visual} object for the provided id.
 	 * <br>If the provided id does not match the required format, this will return {@code null}.
 	 * 
-	 * @param avatarId
+	 * @param visualId
 	 * The id relating to the {@link Visual Visual} we wish to retrieve.
 	 * 
 	 * @return The matching {@link Visual Visual}.
 	 * <br>If the id did not match the required format, returns {@code null}. 
 	 */
 	public Visual getVisualById(String visualId) {
+		// Checks if the visualId matches SoundCloud's visual token format.
 		if (visualId.length() != 19
 		|| !visualId.matches("^([0-9]{12})-([a-zA-Z0-9]){6}$")) {
 			return (null);

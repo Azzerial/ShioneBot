@@ -16,8 +16,8 @@ public class API {
 	public final String OFFSET = "offset=";
 	public final String LINKED_PARTITIONING = "linked_partitioning=";
 	
-	private String cliendId;
-	private String appVersion;
+	private final String cliendId;
+	private final String appVersion;
 	
 	public API(String cliendId, String appVersion) {
 		this.cliendId = cliendId;
@@ -31,59 +31,39 @@ public class API {
 	public String getCliendId() {
 		return (cliendId);
 	}
-	
-	public String requestUserIdToSoundCloudApi(String permalink) {
-		long userId;
-		JSONObject userObj = null;
-		
+
+	public JSONObject requestJson(String path) {
+		JSONObject obj = null;
+
 		try {
-			InputStream stream = new URL("https://api.soundcloud.com/users/"
-				+ permalink + "?"
-				+ CLIENT_ID + this.cliendId
-			).openStream();
+			InputStream stream = new URL(path).openStream();
 			String json = IOUtils.toString(stream);
-			userObj = new JSONObject(json);
-			userId = userObj.getLong("id");
+			obj = new JSONObject(json);
 			stream.close();
 		} catch (IOException | JSONException e) {
 			return (null);
 		}
+		return (obj);
+	}
+
+	public String getArtistId(String permalink) {
+		long userId;
+		String path = "https://api.soundcloud.com/users/" + permalink + "?" + CLIENT_ID + this.cliendId;
+		JSONObject obj = requestJson(path);
+
+		if (obj == null) {
+			return (null);
+		}
+		userId = obj.getLong("id");
 		return (Long.toString(userId));
 	}
-	
-	public JSONObject requestUserToSoundCloudApi(String userId) {
-		JSONObject userObj = null;
-		
-		try {
-			InputStream stream = new URL("https://api.soundcloud.com/users/"
-				+ userId + "?"
-				+ CLIENT_ID + this.cliendId
-			).openStream();
-			String json = IOUtils.toString(stream);
-			userObj = new JSONObject(json);
-			stream.close();
-		} catch (IOException | JSONException e) {
-			return (null);
-		}
-		return (userObj);
+
+	public String pathArtistEntity(String artistId) {
+		return ("https://api.soundcloud.com/users/" + artistId + "?" + CLIENT_ID + this.cliendId);
 	}
-	
-	public JSONObject requestUserToSoundCloudApiV2(String userId) {
-		JSONObject userObj = null;
-		
-		try {
-			InputStream stream = new URL("https://api-v2.soundcloud.com/users/"
-				+ userId + "?"
-				+ CLIENT_ID + this.cliendId + "&"
-				+ APP_VERSION + this.appVersion
-			).openStream();
-			String json = IOUtils.toString(stream);
-			userObj = new JSONObject(json);
-			stream.close();
-		} catch (IOException | JSONException e) {
-			return (null);
-		}
-		return (userObj);
+
+	public String pathArtistEntity2(String artistId) {
+		return ("https://api-v2.soundcloud.com/users/" + artistId + "?" + CLIENT_ID + this.cliendId + "&" + APP_VERSION + this.appVersion);
 	}
-	
+
 }

@@ -94,12 +94,12 @@ public class RegisterCommand extends Command {
 		}
 		permalink = link.substring(23);
 		String userId = null;
-		userId = Shione.getSC2DAPI().getUserIdFromPermalink(permalink);
+		userId = Shione.getSC2DAPI().getArtistIdFromPermalink(permalink);
 		if (userId == null) {
 			sendCommandMessage(channel, author, self, "This user doesn't exist!", colorError);
 			return ("!User doesn't exists.");
 		}
-		Artist artist = Shione.getSC2DAPI().getUserById(userId);
+		Artist artist = Shione.getSC2DAPI().getArtistById(userId);
 		
 		if (!isAccountAvailable(artist.getId())) {
 			User owner = event.getJDA().getUserById(getAccountForMixedId(artist.getId()).getDiscordId());
@@ -252,7 +252,7 @@ public class RegisterCommand extends Command {
 			accounts.add(account);
 			writer.close();
 			System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Linked "
-				+ Shione.getSC2DAPI().getUserById(soundcloudId).getPageUrl() 
+				+ Shione.getSC2DAPI().getArtistById(soundcloudId).getPageUrl()
 				+ " to ["
 				+ Shione.getAPI().getUserById(discordId).getName()
 				+ "]("
@@ -289,6 +289,6 @@ public class RegisterCommand extends Command {
 	public static Artist getUserSoundCloudArtist(User user) {
 		String soundcloudId = getAccountForMixedId(user.getId()).getSoundCloudId();
 		
-		return (Shione.getSC2DAPI().getUserById(soundcloudId));
+		return (Shione.getSC2DAPI().getArtistById(soundcloudId));
 	}
 }

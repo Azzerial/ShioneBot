@@ -105,7 +105,7 @@ public class Shione {
 			
 			// Start the SC2D api.
 			SC2DBuilder sc2d_builder = SC2DBuilder.getInstance(settings);
-			scapi = sc2d_builder.getSC2D();
+			scapi = sc2d_builder.build();
 			
 			// Set the Ops list.
 			permissions = Permissions.getInstance();

@@ -45,6 +45,8 @@ public class ArtistImpl implements Artist {
 		this.id = id;
 	}
 
+	// -- Getters --
+
 	@Override
 	public Calendar getRegistrationDate() {
 		return (accountCreationDate);

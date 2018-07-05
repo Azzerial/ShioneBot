@@ -10,34 +10,33 @@ import org.json.JSONObject;
 import net.azzerial.sc2d.core.API;
 
  public class EntityBuilder {
-	
-	// Utils
+
 	private final static String DEFAULT_AVATAR = "https://a1.sndcdn.com/images/default_avatar_large.png";
 	
-	public static Artist createUser(API api, JSONObject user, JSONObject user2) {
-		final long id = user2.getLong("id");
+	public static Artist createUser(API api, JSONObject artistJson, JSONObject artist2JSON) {
+		final long id = artist2JSON.getLong("id");
 		String avatarId;
 		String visualId;
 		Calendar accountCreationDate = Calendar.getInstance();
 		
 		// Get and check the User's Avatar id.
-		if (user.getString("avatar_url").equals(DEFAULT_AVATAR)
-		&& user2.getString("avatar_url").startsWith(DEFAULT_AVATAR)) {
+		if (artistJson.getString("avatar_url").equals(DEFAULT_AVATAR)
+		&& artist2JSON.getString("avatar_url").startsWith(DEFAULT_AVATAR)) {
 			avatarId = null;
 		} else {
-			avatarId = user2.getString("avatar_url").substring(30, 49);
+			avatarId = artist2JSON.getString("avatar_url").substring(30, 49);
 		}
 		// Get and check the User's Visual id.
-		if (user2.get("visuals") == null) {
+		if (artist2JSON.get("visuals") == null) {
 			visualId = null;
 		} else {
-			JSONObject visualsObj = user2.getJSONObject("visuals");
+			JSONObject visualsObj = artist2JSON.getJSONObject("visuals");
 			JSONArray visualsArray = visualsObj.getJSONArray("visuals");
 			JSONObject visualObj = visualsArray.getJSONObject(0);
 			visualId = visualObj.getString("visual_url").substring(30, 49);
 		}
 		// Get and set the User's account creation date
-		String[] createdDate = user2.getString("created_at").split("\\D");
+		String[] createdDate = artist2JSON.getString("created_at").split("\\D");
 		accountCreationDate.set(
 			Integer.parseInt(createdDate[0]),
 			Integer.parseInt(createdDate[1]),
@@ -47,32 +46,31 @@ import net.azzerial.sc2d.core.API;
 			Integer.parseInt(createdDate[5])
 		);
 		
-		ArtistImpl userObj = new ArtistImpl(api, id);
-		userObj.setAccountCreationDate(accountCreationDate)
+		ArtistImpl artist = new ArtistImpl(api, id);
+		artist.setAccountCreationDate(accountCreationDate)
 			.setAvatarId(avatarId)
-			.setCity((user2.get("city").equals(null)) ? (null) : (user2.getString("city").isEmpty() ? (null) : (user2.getString("city"))))
-			.setCommentsCount(user2.getLong("comments_count"))
-			.setCountry((user.get("country").equals(null)) ? (null) : (user.getString("country").isEmpty() ? (null) : (user.getString("country"))))
-			.setCountryCode((user2.get("country_code").equals(null)) ? (null) : (user2.getString("country_code").isEmpty() ? (null) : (user2.getString("country_code"))))
-			.setDescription((user2.get("description").equals(null)) ? (null) : (user2.getString("description").isEmpty() ? (null) : (user2.getString("description"))))
-			.setFirstName((user2.get("first_name").equals(null)) ? (null) : (user2.getString("first_name").isEmpty() ? (null) : (user2.getString("first_name"))))
-			.setFollowersCount(user2.getLong("followers_count"))
-			.setFollowingsCount(user2.getLong("followings_count"))
-			.setFullName((user2.get("full_name").equals(null)) ? (null) : (user2.getString("full_name").isEmpty() ? (null) : (user2.getString("full_name"))))
-			.setLastName((user2.get("last_name").equals(null)) ? (null) : (user2.getString("last_name").isEmpty() ? (null) : (user2.getString("last_name"))))
-			.setLikesCount(user2.getLong("likes_count") + user2.getLong("playlist_likes_count"))
-			.setPageUrl(user2.getString("permalink_url"))
-			.setPermalink(user2.getString("permalink"))
-			.setPlanSubscription(user.getString("plan"))
-			.setPlaylistsCount(user2.getLong("playlist_count"))
-			.setPlaylistsLikesCount(user2.getLong("playlist_likes_count"))
-			.setRepostsCount(user.getLong("reposts_count"))
-			.setTracksCount(user2.getLong("track_count"))
-			.setTracksLikesCount(user2.getLong("likes_count"))
-			.setUsername(user2.getString("username"))
-			.setVisualId(visualId)
-		;
-		return (userObj);
+			.setCity((artist2JSON.get("city").equals(null)) ? (null) : (artist2JSON.getString("city").isEmpty() ? (null) : (artist2JSON.getString("city"))))
+			.setCommentsCount(artist2JSON.getLong("comments_count"))
+			.setCountry((artistJson.get("country").equals(null)) ? (null) : (artistJson.getString("country").isEmpty() ? (null) : (artistJson.getString("country"))))
+			.setCountryCode((artist2JSON.get("country_code").equals(null)) ? (null) : (artist2JSON.getString("country_code").isEmpty() ? (null) : (artist2JSON.getString("country_code"))))
+			.setDescription((artist2JSON.get("description").equals(null)) ? (null) : (artist2JSON.getString("description").isEmpty() ? (null) : (artist2JSON.getString("description"))))
+			.setFirstName((artist2JSON.get("first_name").equals(null)) ? (null) : (artist2JSON.getString("first_name").isEmpty() ? (null) : (artist2JSON.getString("first_name"))))
+			.setFollowersCount(artist2JSON.getLong("followers_count"))
+			.setFollowingsCount(artist2JSON.getLong("followings_count"))
+			.setFullName((artist2JSON.get("full_name").equals(null)) ? (null) : (artist2JSON.getString("full_name").isEmpty() ? (null) : (artist2JSON.getString("full_name"))))
+			.setLastName((artist2JSON.get("last_name").equals(null)) ? (null) : (artist2JSON.getString("last_name").isEmpty() ? (null) : (artist2JSON.getString("last_name"))))
+			.setLikesCount(artist2JSON.getLong("likes_count") + artist2JSON.getLong("playlist_likes_count"))
+			.setPageUrl(artist2JSON.getString("permalink_url"))
+			.setPermalink(artist2JSON.getString("permalink"))
+			.setPlanSubscription(artistJson.getString("plan"))
+			.setPlaylistsCount(artist2JSON.getLong("playlist_count"))
+			.setPlaylistsLikesCount(artist2JSON.getLong("playlist_likes_count"))
+			.setRepostsCount(artistJson.getLong("reposts_count"))
+			.setTracksCount(artist2JSON.getLong("track_count"))
+			.setTracksLikesCount(artist2JSON.getLong("likes_count"))
+			.setUsername(artist2JSON.getString("username"))
+			.setVisualId(visualId);
+		return (artist);
 	}
 	
 }
