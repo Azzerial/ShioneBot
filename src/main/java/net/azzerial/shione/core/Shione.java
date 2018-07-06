@@ -109,7 +109,7 @@ public class Shione {
 			
 			// Set the Ops list.
 			permissions = Permissions.getInstance();
-			
+
 		} catch (IllegalArgumentException e) {
 			System.out.println(ShioneInfo.getTime() + "[Core/Shione]: Some of the needed informations went missing! Please provide valid informations in the Config.json file.");
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package net.azzerial.sc2d.core;
 
 import net.azzerial.sc2d.builders.EntityBuilder;
 import net.azzerial.sc2d.entities.Avatar;
+import net.azzerial.sc2d.entities.Comment;
 import net.azzerial.sc2d.entities.Visual;
 import net.azzerial.sc2d.entities.Artist;
 import org.json.JSONObject;
@@ -99,5 +100,22 @@ public class SC2D {
 		}
 		return (new Visual(visualId));
 	}
-	
+
+	// -- NEED JAVADOCS --
+
+	public Comment getCommentById(String commentId) {
+		if (commentId == null || commentId.isEmpty()) {
+			return (null);
+		}
+		// Checks if the commentId is only made of digits.
+		if (!commentId.matches("^([0-9]+)$")) {
+			return (null);
+		}
+		JSONObject commentObj = api.requestJson(api.pathCommentEntity(commentId));
+		if (commentObj == null) {
+			return (null);
+		}
+		return (EntityBuilder.createComment(api, commentObj));
+	}
+
 }

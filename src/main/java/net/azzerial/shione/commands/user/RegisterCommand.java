@@ -125,7 +125,7 @@ public class RegisterCommand extends Command {
 			.setValidateAction(m -> {
 				createUserDatabase(author.getId(), artist.getId());
 				m.clearReactions().queue();
-				MessageUtils.editEmbedMessage(m, author, self, getName(), "You have registered [" + artist.getUsername() + "](" + artist.getPageUrl() + ") as your SoundCloud account.", colorCommand);
+				MessageUtils.editEmbedMessage(m, author, self, getName(), "You have registered [" + artist.getUsername() + "](" + artist.getPermalinkUrl() + ") as your SoundCloud account.", colorCommand);
 			})
 			.build();
 		dBuilder.display(channel);
@@ -252,7 +252,7 @@ public class RegisterCommand extends Command {
 			accounts.add(account);
 			writer.close();
 			System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Linked "
-				+ Shione.getSC2DAPI().getArtistById(soundcloudId).getPageUrl()
+				+ Shione.getSC2DAPI().getArtistById(soundcloudId).getPermalinkUrl()
 				+ " to ["
 				+ Shione.getAPI().getUserById(discordId).getName()
 				+ "]("

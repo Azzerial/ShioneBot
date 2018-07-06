@@ -51,14 +51,14 @@ public class WhoisCommand extends Command {
 			.setAuthor(author)
 			.setSelf(self)
 			.setTitle(EmotesUtils.INFORMATION  +" Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?")
-			.setLink(artist.getPageUrl())
+			.setLink(artist.getPermalinkUrl())
 			.setThumbnail(artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl())
 			.setDescription(getInformationDescription(artist))
 			.setImage(artist.getVisualDefaultUrl())
 			.setColor(colorCommand)
 			.addPage(EmotesUtils.INFORMATION, (m, e) -> {
 				MessageUtils.editEmbedMessage(m,
-					EmotesUtils.INFORMATION + " Whois " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPageUrl(), self.getAvatarUrl(),
+					EmotesUtils.INFORMATION + " Whois " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getInformationDescription(artist),
@@ -68,7 +68,7 @@ public class WhoisCommand extends Command {
 			})
 			.addPage(EmotesUtils.BAR_CHART, (m, e) -> {
 				MessageUtils.editEmbedMessage(m,
-					EmotesUtils.BAR_CHART + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPageUrl(), self.getAvatarUrl(),
+					EmotesUtils.BAR_CHART + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getStatisticsDescription(artist),
@@ -78,7 +78,7 @@ public class WhoisCommand extends Command {
 			})
 			.addPage(EmotesUtils.LINK, (m, e) -> {
 				MessageUtils.editEmbedMessage(m,
-					EmotesUtils.LINK + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPageUrl(), self.getAvatarUrl(),
+					EmotesUtils.LINK + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getLinksDescription(artist),
@@ -195,9 +195,9 @@ public class WhoisCommand extends Command {
 		} else if (artist.getCountry() != null) {
 			description += "__From:__ `" + artist.getCountry() + "`\n";
 		}
-		String day = (artist.getRegistrationDate().get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "") + artist.getRegistrationDate().get(Calendar.DAY_OF_MONTH);
-		String month = (artist.getRegistrationDate().get(Calendar.MONTH) < 10 ? "0" : "") + (artist.getRegistrationDate().get(Calendar.MONTH) + 1);
-		String year = "" + artist.getRegistrationDate().get(Calendar.YEAR);
+		String day = (artist.getCreationDate().get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "") + artist.getCreationDate().get(Calendar.DAY_OF_MONTH);
+		String month = (artist.getCreationDate().get(Calendar.MONTH) < 10 ? "0" : "") + (artist.getCreationDate().get(Calendar.MONTH) + 1);
+		String year = "" + artist.getCreationDate().get(Calendar.YEAR);
 		description += "__Member since:__ `" + day + "/" + month + "/" + year + "` (DD/MM/YYYY)\n\n";
 		description += "__Description:__\n```\n" + (artist.getDescription() == null ? "" : artist.getDescription()) + "\n```";
 		return (description);
@@ -222,7 +222,7 @@ public class WhoisCommand extends Command {
 		
 		description += "`" + artist.getUsername() + "` links:\n\n";
 		description += "__SoundCloud links:__\n";
-		description += " • [SoundCloud Home Page](" + artist.getPageUrl() + ")\n";
+		description += " • [SoundCloud Home Page](" + artist.getPermalinkUrl() + ")\n";
 		description += " • [SoundCloud Avatar](" + artist.getAvatarDefaultUrl() + ")\n";
 		description += " • [SoundCloud Visual](" + artist.getVisualDefaultUrl() + ")";
 		return (description);

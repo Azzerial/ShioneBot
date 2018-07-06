@@ -1,6 +1,5 @@
 package net.azzerial.sc2d.entities.impls;
 
-
 import java.util.Calendar;
 
 import net.azzerial.sc2d.core.API;
@@ -8,13 +7,12 @@ import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.sc2d.entities.Avatar;
 import net.azzerial.sc2d.entities.Visual;
 
-@SuppressWarnings("unused")
 public class ArtistImpl implements Artist {
-	
+
 	private API api;
 	private long id;
 	
-	private Calendar accountCreationDate;
+	private Calendar creationDate;
 	private String avatarId;
 	private boolean avatarEnabled;
 	private String city;
@@ -46,11 +44,6 @@ public class ArtistImpl implements Artist {
 	}
 
 	// -- Getters --
-
-	@Override
-	public Calendar getRegistrationDate() {
-		return (accountCreationDate);
-	}
 	
 	@Override
 	public Avatar getAvatar() {
@@ -86,6 +79,11 @@ public class ArtistImpl implements Artist {
 	@Override
 	public String getCountryCode() {
 		return (countryCode);
+	}
+
+	@Override
+	public Calendar getCreationDate() {
+		return (creationDate);
 	}
 
 	@Override
@@ -132,15 +130,15 @@ public class ArtistImpl implements Artist {
 	public long getLikesCount() {
 		return (likesCount);
 	}
-
-	@Override
-	public String getPageUrl() {
-		return (pageUrl);
-	}
 	
 	@Override
 	public String getPermalink() {
 		return (permalink);
+	}
+
+	@Override
+	public String getPermalinkUrl() {
+		return (pageUrl);
 	}
 
 	@Override
@@ -196,11 +194,6 @@ public class ArtistImpl implements Artist {
 	
 	// -- Setters --
 	
-	public ArtistImpl setAccountCreationDate(Calendar accountCreationDate) {
-		this.accountCreationDate = accountCreationDate;
-		return (this);
-	}
-	
 	public ArtistImpl setAvatarId(String avatarId) {
 		if (avatarId == null) {
 			this.avatarId = "";
@@ -228,6 +221,11 @@ public class ArtistImpl implements Artist {
 	
 	public ArtistImpl setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
+		return (this);
+	}
+
+	public ArtistImpl setCreationDate(Calendar creationDate) {
+		this.creationDate = creationDate;
 		return (this);
 	}
 	

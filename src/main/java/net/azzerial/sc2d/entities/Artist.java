@@ -9,13 +9,6 @@ import java.util.Calendar;
  * <br>Depending on the SoundCloud {@link Artist Artist}, some data may be {@code null}.
  */
 public interface Artist {
-
-	/**
-	 * Gets the {@link java.util.Calendar Date} this {@link Artist Artist}'s account has been created.
-	 * 
-	 * @return The {@link java.util.Calendar Date} the {@link Artist Artist}'s account has been created.
-	 */
-	Calendar getRegistrationDate();
 	
 	/**
 	 * Gets the {@link Avatar Avatar} of this{@link Artist Artist}.
@@ -61,7 +54,14 @@ public interface Artist {
 	 * <br>Returns {@code null} if the {@link Artist Artist}} hasn't registered a country.
 	 */
 	String getCountryCode();
-	
+
+	/**
+	 * Gets the {@link java.util.Calendar Date} this {@link Artist Artist}'s account has been created.
+	 *
+	 * @return The {@link java.util.Calendar Date} the {@link Artist Artist}'s account has been created.
+	 */
+	Calendar getCreationDate();
+
 	/**
 	 * Gets the description of this {@link Artist Artist}}.
 	 * 
@@ -130,18 +130,18 @@ public interface Artist {
 	long getLikesCount();
 	
 	/**
-	 * Gets the page url of this {@link Artist Artist}}.
-	 * 
-	 * @return The page url of the {@link Artist Artist}}.
-	 */
-	String getPageUrl();
-	
-	/**
 	 * Gets the SoundCloud permalink of this {@link Artist Artist}}.
 	 * 
 	 * @return The SoundCloud permalink of the {@link Artist Artist}}.
 	 */
 	String getPermalink();
+
+	/**
+	 * Gets the page url of this {@link Artist Artist}}.
+	 *
+	 * @return The page url of the {@link Artist Artist}}.
+	 */
+	String getPermalinkUrl();
 	
 	/**
 	 * Gets the SoundCloud plan subscription type of this {@link Artist Artist}}.

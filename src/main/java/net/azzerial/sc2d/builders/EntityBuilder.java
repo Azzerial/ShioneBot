@@ -3,7 +3,9 @@
 import java.util.Calendar;
 
 import net.azzerial.sc2d.entities.Artist;
+import net.azzerial.sc2d.entities.Comment;
 import net.azzerial.sc2d.entities.impls.ArtistImpl;
+import net.azzerial.sc2d.entities.impls.CommentImpl;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -47,12 +49,12 @@ import net.azzerial.sc2d.core.API;
 		);
 		
 		ArtistImpl artist = new ArtistImpl(api, id);
-		artist.setAccountCreationDate(accountCreationDate)
-			.setAvatarId(avatarId)
+		artist.setAvatarId(avatarId)
 			.setCity((artist2JSON.get("city").equals(null)) ? (null) : (artist2JSON.getString("city").isEmpty() ? (null) : (artist2JSON.getString("city"))))
 			.setCommentsCount(artist2JSON.getLong("comments_count"))
 			.setCountry((artistJson.get("country").equals(null)) ? (null) : (artistJson.getString("country").isEmpty() ? (null) : (artistJson.getString("country"))))
 			.setCountryCode((artist2JSON.get("country_code").equals(null)) ? (null) : (artist2JSON.getString("country_code").isEmpty() ? (null) : (artist2JSON.getString("country_code"))))
+			.setCreationDate(accountCreationDate)
 			.setDescription((artist2JSON.get("description").equals(null)) ? (null) : (artist2JSON.getString("description").isEmpty() ? (null) : (artist2JSON.getString("description"))))
 			.setFirstName((artist2JSON.get("first_name").equals(null)) ? (null) : (artist2JSON.getString("first_name").isEmpty() ? (null) : (artist2JSON.getString("first_name"))))
 			.setFollowersCount(artist2JSON.getLong("followers_count"))
@@ -71,6 +73,57 @@ import net.azzerial.sc2d.core.API;
 			.setUsername(artist2JSON.getString("username"))
 			.setVisualId(visualId);
 		return (artist);
+	}
+
+	public static Comment createComment(API api, JSONObject commentJson) {
+		final long id = commentJson.getLong("id");
+		Calendar commentCreationDate = Calendar.getInstance();
+
+		// Check if the provided Json is from a comment
+		if (!commentJson.getString("kind").equals("comment")) {
+			return (null);
+		}
+		// Get the author json data
+		JSONObject authorObj = commentJson.getJSONObject("user");
+		if (!authorObj.getString("kind").equals("user")) {
+			return (null);
+		}
+		// Get the track json data
+		JSONObject trackObj = commentJson.getJSONObject("track");
+		if (!trackObj.getString("kind").equals("track")) {
+			return (null);
+		}
+		// Get the artist json data
+		JSONObject artistObj = trackObj.getJSONObject("user");
+		if (!artistObj.getString("kind").equals("user")) {
+			return (null);
+		}
+		// Get and set the comment's creation date
+		String[] createdDate = commentJson.getString("created_at").split("\\D");
+		commentCreationDate.set(
+			Integer.parseInt(createdDate[0]),
+			Integer.parseInt(createdDate[1]),
+			Integer.parseInt(createdDate[2]),
+			Integer.parseInt(createdDate[3]),
+			Integer.parseInt(createdDate[4]),
+			Integer.parseInt(createdDate[5])
+		);
+
+		CommentImpl comment = new CommentImpl(api, id);
+		comment.setArtistId(artistObj.getLong("id"))
+			.setArtistPermalink(artistObj.getString("permalink"))
+			.setArtistUsername(artistObj.getString("username"))
+			.setAuthorId(authorObj.getLong("id"))
+			.setAuthorPermalink(authorObj.getString("permalink"))
+			.setAuthorUsername(authorObj.getString("username"))
+			.setContent(commentJson.getString("body"))
+			.setCreationDate(commentCreationDate)
+			.setTimestamp(commentJson.getLong("timestamp"))
+			.setTrackDuration(trackObj.getLong("duration"))
+			.setTrackId(trackObj.getLong("id"))
+			.setTrackPermalink(trackObj.getString("permalink"))
+			.setTrackTitle(trackObj.getString("title"));
+		return (comment);
 	}
 	
 }
