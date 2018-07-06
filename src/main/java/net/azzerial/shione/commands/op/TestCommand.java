@@ -46,7 +46,6 @@ public class TestCommand extends Command {
 		content += "Track Title: `" + c.getTrackTitle() + "`";
 
 		sendCommandMessage(channel, author, self, content, colorInformation);
-		
 		return ("Tested.");
 	}
 
