@@ -1,0 +1,63 @@
+Menu/Pagination system:
+
+. List:
+
+- set Title
+- set Description
+- set Values (ordered HashMap with on the left side key and right value)
+- show Key Number (1, then 2, ...)
+- show Page Number
+- show Total Page Amount
+- set Style (classic, codeblock, embed paragraphs)
+- set Authorized Users (User... users)
+- add Authorized User
+- add Authorized Users (User... users)
+- clear Authorized Users
+- set Row Count (int 5 -> 20) #RowMin=5 #RowMax=20
+- set Columns Count (int 1 -> 3) #ColumnMin=1 #ColumnMax=3
+- set Previous Page Emoji   \ They must be
+- set Next Page Emoji       / different.
+
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━┓
+┃Likes                  ┃
+┣━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┓
+┃Reposts                      ┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━┓
+┃Posts                                ┃
+┣━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┛
+┃Comments         ┃
+┣━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┓
+┃Followers                       ┃
+┣━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┛
+┃Followings               ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+┏━━━━━━━━━━━━━━━━━━━━━━━┓
+┃Likes                  ┃#67
+┣━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┓
+┃Reposts                      ┃#34
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━┓
+┃Posts                                ┃#3
+┣━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┛
+┃Comments         ┃#42
+┣━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┓
+┃Followers                       ┃#24
+┣━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┛
+┃Followings               ┃#26
+┗━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+┏━━━━━━━━━━━━━━━━━━━━━━━┓
+┃Likes               736┃#67
+┣━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━┓
+┃Reposts                   923┃#34
+┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━┓
+┃Posts                            1432┃#3
+┣━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┛
+┃Comments      364┃#42
+┣━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━┓
+┃Followers                   4745┃#24
+┣━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━┛
+┃Followings            231┃#26
+┗━━━━━━━━━━━━━━━━━━━━━━━━━┛
