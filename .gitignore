@@ -1,7 +1,14 @@
 /.gradle/
 /.gradle/
+/.settings/
+/.idea/
 /bin/
 /build/
+/Guilds/
+/out/
+/Users/
+.classpath
+.project
 *.class
 *.bin
 *.xml
