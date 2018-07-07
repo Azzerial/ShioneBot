@@ -2,3 +2,9 @@
 /.gradle/
 /bin/
 /build/
+*.class
+*.bin
+*.xml
+*.lock
+*.properties
+*.json
