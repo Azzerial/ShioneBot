@@ -8,7 +8,7 @@ import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.listeners.GuildEvent;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -53,7 +53,7 @@ public class HelpCommand extends Command {
 				return ("Displayed the help menu correctly.");
 			}
 			if (cmd.getAliases().contains(args[1].toLowerCase())) {
-				MessageUtils.sendEmbedMessage(channel,
+				MessageUtil.sendEmbedMessage(channel,
 					cmd.getName(), null, self.getAvatarUrl(),
 					null,
 					null, null,

@@ -8,7 +8,7 @@ import net.azzerial.shione.core.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.listeners.GuildEvent;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -79,7 +79,7 @@ public abstract class Command extends ListenerAdapter {
 	}
 	
 	private void sendMissingMessage(TextChannel channel, User author, User self, boolean opCase) {
-		MessageUtils.sendEmbedMessage(channel, author, self,
+		MessageUtil.sendEmbedMessage(channel, author, self,
 			getName(),
 			(opCase ? Permissions.OP_REQUIRED_MESSAGE : GuildEvent.ADMIN_REQUIRED_MESSAGE),
 			colorError);
@@ -118,7 +118,7 @@ public abstract class Command extends ListenerAdapter {
 	}
 	
 	public void sendSubCommandMessage(MessageChannel channel, User author, User self) {
-		MessageUtils.sendEmbedMessage(channel,
+		MessageUtil.sendEmbedMessage(channel,
 			getName(), null, self.getAvatarUrl(),
 			null,
 			null, null,
@@ -129,7 +129,7 @@ public abstract class Command extends ListenerAdapter {
 	}
 	
 	public void sendCommandMessage(MessageChannel channel, User author, User self, String content, Color color) {
-		MessageUtils.sendEmbedMessage(channel,
+		MessageUtil.sendEmbedMessage(channel,
 			getName(), null, self.getAvatarUrl(),
 			null,
 			null, null,

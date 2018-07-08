@@ -1,6 +1,6 @@
 package net.azzerial.shione.utils;
 
-public class EmotesUtils {
+public class EmoteUtil {
 
 // --- CHOICES	
 	public static final String CHECK_MARK = "✅";

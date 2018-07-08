@@ -19,7 +19,7 @@ import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.menus.dialogs.VerficationDialog;
 import net.azzerial.shione.entities.Account;
 import net.azzerial.sc2d.entities.Artist;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -59,7 +59,7 @@ public class RegisterCommand extends Command {
 				.setValidateAction(m -> {
 					deleteUserAccount(author.getId());
 					m.clearReactions().queue();
-					MessageUtils.editEmbedMessage(m, author, self, getName(), "Your SoundCloud account has successfully been unregistered.", colorCommand);
+					MessageUtil.editEmbedMessage(m, author, self, getName(), "Your SoundCloud account has successfully been unregistered.", colorCommand);
 				})
 				.build();
 			dBuilder.display(channel);
@@ -138,7 +138,7 @@ public class RegisterCommand extends Command {
 			.setValidateAction(m -> {
 				createUserDatabase(author.getId(), artist.getId());
 				m.clearReactions().queue();
-				MessageUtils.editEmbedMessage(m, author, self, getName(), "You have registered [" + artist.getUsername() + "](" + artist.getPermalinkUrl() + ") as your SoundCloud account.", colorCommand);
+				MessageUtil.editEmbedMessage(m, author, self, getName(), "You have registered [" + artist.getUsername() + "](" + artist.getPermalinkUrl() + ") as your SoundCloud account.", colorCommand);
 			})
 			.build();
 		dBuilder.display(channel);

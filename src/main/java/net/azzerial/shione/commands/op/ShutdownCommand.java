@@ -7,7 +7,7 @@ import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.menus.dialogs.VerficationDialog;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -30,7 +30,7 @@ public class ShutdownCommand extends Command {
 			.setDescription("Are you sure to shutdown the bot?")
 			.setValidateAction(m -> {
 				m.clearReactions().queue();
-				MessageUtils.editEmbedMessage(m, author, self, getName(), "じゃね〜 / Ja nē!", colorCommand);
+				MessageUtil.editEmbedMessage(m, author, self, getName(), "じゃね〜 / Ja nē!", colorCommand);
 				System.out.println(ShioneInfo.getTime() + "[Command/ShutdownCommand]: じゃね〜 / Ja nē!");
 				Shione.getAPI().shutdown();
 				try {
@@ -42,7 +42,7 @@ public class ShutdownCommand extends Command {
 			})
 			.setCancelAction(m -> {
 				m.clearReactions().queue();
-				MessageUtils.editEmbedMessage(m, author, self, getName(), "Your request has been canceled.", colorCommand);
+				MessageUtil.editEmbedMessage(m, author, self, getName(), "Your request has been canceled.", colorCommand);
 				System.out.println(ShioneInfo.getTime() + "[Command/ShutdownCommand]: Request has been canceled.");
 			})
 			.build();

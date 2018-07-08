@@ -10,8 +10,8 @@ import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.menus.dialogs.PageDialog;
 import net.azzerial.sc2d.entities.enums.AvatarFormat;
 import net.azzerial.sc2d.entities.Artist;
-import net.azzerial.shione.utils.EmotesUtils;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.EmoteUtil;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -24,12 +24,12 @@ public class WhoisCommand extends Command {
 			sendSubCommandMessage(channel, author, self);
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
-		
-		if (event.getMessage().getMentionedUsers().isEmpty()) {
-			sendCommandMessage(channel, author, self, "You need to mention a user.", colorError);
-			return ("!No mentionned user.");
+
+		if (event.getMessage().getMentionedUsers().isEmpty() && event.getGuild().getMembersByEffectiveName(args[1],true).isEmpty()) {
+			sendCommandMessage(channel, author, self, "There are no users named that way in this guild. Maybe you should try mentioning a user instead.", colorError);
+			return ("!No user named that way in the guild.");
 		}
-		User user = event.getMessage().getMentionedUsers().get(0);
+		User user = (!event.getMessage().getMentionedUsers().isEmpty() ? (event.getMessage().getMentionedUsers().get(0)) : (event.getGuild().getMembersByEffectiveName(args[1],true).get(0).getUser()));
 
 		if (!RegisterCommand.isRegistered(author)) {
 			sendCommandMessage(channel, author, self, "You need to register in order to user this commands.", colorError);
@@ -41,7 +41,7 @@ public class WhoisCommand extends Command {
 			} else {
 				sendCommandMessage(channel, author, self, "`" + user.getName() + "` isn't registered.", colorError);
 			}
-			return ("!Mentionned user wasn't registered.");
+			return ("!Mentioned user wasn't registered.");
 		}
 		Artist artist = RegisterCommand.getUserSoundCloudArtist(user);
 		
@@ -50,15 +50,15 @@ public class WhoisCommand extends Command {
 			.addUsers(author)
 			.setAuthor(author)
 			.setSelf(self)
-			.setTitle(EmotesUtils.INFORMATION  +" Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?")
+			.setTitle(EmoteUtil.INFORMATION  +" Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?")
 			.setLink(artist.getPermalinkUrl())
 			.setThumbnail(artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl())
 			.setDescription(getInformationDescription(artist))
 			.setImage(artist.getVisualDefaultUrl())
 			.setColor(colorCommand)
-			.addPage(EmotesUtils.INFORMATION, (m, e) -> {
-				MessageUtils.editEmbedMessage(m,
-					EmotesUtils.INFORMATION + " Whois " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
+			.addPage(EmoteUtil.INFORMATION, (m, e) -> {
+				MessageUtil.editEmbedMessage(m,
+					EmoteUtil.INFORMATION + " Whois " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getInformationDescription(artist),
@@ -66,9 +66,9 @@ public class WhoisCommand extends Command {
 					"Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
 					colorCommand);
 			})
-			.addPage(EmotesUtils.BAR_CHART, (m, e) -> {
-				MessageUtils.editEmbedMessage(m,
-					EmotesUtils.BAR_CHART + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
+			.addPage(EmoteUtil.BAR_CHART, (m, e) -> {
+				MessageUtil.editEmbedMessage(m,
+					EmoteUtil.BAR_CHART + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getStatisticsDescription(artist),
@@ -76,9 +76,9 @@ public class WhoisCommand extends Command {
 					"Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
 					colorCommand);
 			})
-			.addPage(EmotesUtils.LINK, (m, e) -> {
-				MessageUtils.editEmbedMessage(m,
-					EmotesUtils.LINK + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
+			.addPage(EmoteUtil.LINK, (m, e) -> {
+				MessageUtil.editEmbedMessage(m,
+					EmoteUtil.LINK + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getLinksDescription(artist),
@@ -88,7 +88,7 @@ public class WhoisCommand extends Command {
 			})
 			.build();
 		dialog.display(channel);
-		
+
 		/*
 		 * To display:
 		 * 
@@ -140,7 +140,7 @@ public class WhoisCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this commands to get the SoundCloud informations of a user.**\n"
+		return ("**Use this commands to get the SoundCloud information of a user.**\n"
 			+ "Note that the mentioned user must have registered.");
 	}
 
