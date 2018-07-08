@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.menus.EmbedMenu;
 import net.azzerial.shione.menus.EventWaiter;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -140,7 +140,7 @@ public class CustomDialog extends EmbedMenu {
 		private BiConsumer<Message, ReactionEmote> action = (m, re) -> {};
 		private Consumer<Message> timeoutAction = m -> {
 			m.clearReactions().queue();
-			MessageUtils.editEmbedMessage(m,
+			MessageUtil.editEmbedMessage(m,
 				title, null, self.getAvatarUrl(),
 				null,
 				null, null,

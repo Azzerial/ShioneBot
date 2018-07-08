@@ -11,8 +11,8 @@ import java.util.function.Consumer;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.menus.EmbedMenu;
 import net.azzerial.shione.menus.EventWaiter;
-import net.azzerial.shione.utils.EmotesUtils;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.EmoteUtil;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -64,8 +64,8 @@ public class VerficationDialog extends EmbedMenu {
 	
 	private void initialize(RestAction<Message> restAction) {
 		List<String> emotes = new ArrayList<String>();
-		emotes.add(EmotesUtils.CHECK_MARK);
-		emotes.add(EmotesUtils.CROSS_MARK);
+		emotes.add(EmoteUtil.CHECK_MARK);
+		emotes.add(EmoteUtil.CROSS_MARK);
 		
 		restAction.queue(m -> {
 			for (int i = 0; i < emotes.size(); i += 1) {
@@ -93,11 +93,11 @@ public class VerficationDialog extends EmbedMenu {
 				return (canUserInteract(event.getUser(), event.getGuild()));
 			},
 			(MessageReactionAddEvent event) -> {				
-				if (event.getReactionEmote().getName().equals(EmotesUtils.CHECK_MARK)) {
+				if (event.getReactionEmote().getName().equals(EmoteUtil.CHECK_MARK)) {
 					action.accept(message);
 					return;
 				}
-				if (event.getReactionEmote().getName().equals(EmotesUtils.CROSS_MARK)) {
+				if (event.getReactionEmote().getName().equals(EmoteUtil.CROSS_MARK)) {
 					cancel.accept(message);
 					return;
 				}
@@ -117,9 +117,9 @@ public class VerficationDialog extends EmbedMenu {
 		}
 		if (description != null) {
 			builder.setDescription(description + "\n\n"
-				+ "Either press " + EmotesUtils.CHECK_MARK + " to validate, or " + EmotesUtils.CROSS_MARK + " to cancel.");
+				+ "Either press " + EmoteUtil.CHECK_MARK + " to validate, or " + EmoteUtil.CROSS_MARK + " to cancel.");
 		} else {
-			builder.setDescription("Either press " + EmotesUtils.CHECK_MARK + " to validate, or " + EmotesUtils.CROSS_MARK + " to cancel.");
+			builder.setDescription("Either press " + EmoteUtil.CHECK_MARK + " to validate, or " + EmoteUtil.CROSS_MARK + " to cancel.");
 		}
 		if (image != null) {
 			builder.setImage(image);
@@ -150,7 +150,7 @@ public class VerficationDialog extends EmbedMenu {
 		};
 		private Consumer<Message> cancel = m -> {
 			m.clearReactions().queue();
-			MessageUtils.editEmbedMessage(m,
+			MessageUtil.editEmbedMessage(m,
 				title, null, self.getAvatarUrl(),
 				null,
 				null, null,
@@ -161,7 +161,7 @@ public class VerficationDialog extends EmbedMenu {
 		};
 		private Consumer<Message> timeoutAction = m -> {
 			m.clearReactions().queue();
-			MessageUtils.editEmbedMessage(m,
+			MessageUtil.editEmbedMessage(m,
 				title, null, self.getAvatarUrl(),
 				null,
 				null, null,

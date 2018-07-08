@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.entities.Server;
-import net.azzerial.shione.utils.MessageUtils;
+import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
@@ -32,7 +32,7 @@ public class GuildEvent extends ListenerAdapter {
 		Guild guild = event.getGuild();
 		
 		System.out.println(ShioneInfo.getTime() + "[Listeners/GuildEvent]: New guild joined! (Name: " + guild.getName() + ", Id: " + guild.getId() + ")");
-		MessageUtils.sendEmbedMessage(event.getGuild().getDefaultChannel(),
+		MessageUtil.sendEmbedMessage(event.getGuild().getDefaultChannel(),
 			"Hello, my name is Shione. I'm the bot sent by SoundCloud.", null, event.getJDA().getSelfUser().getAvatarUrl(),
 			"https://78.media.tumblr.com/071f6f3075392792250f2a8400230618/tumblr_nfk0p6MKBd1saxdy4o1_500.gif",
 			null, null,
