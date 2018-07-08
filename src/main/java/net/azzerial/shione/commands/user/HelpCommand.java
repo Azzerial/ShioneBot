@@ -100,7 +100,7 @@ public class HelpCommand extends Command {
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
 			"`" + ShioneInfo.PREFIX + "help` - Shows Shione's commands help page.",
-			"`" + ShioneInfo.PREFIX + "help register` - Shows the register commands's help page."
+			"`" + ShioneInfo.PREFIX + "help register` - Shows the register command's help page."
 		));
 	}
 

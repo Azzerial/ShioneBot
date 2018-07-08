@@ -140,8 +140,8 @@ public class WhoisCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this commands to get the SoundCloud information of a user.**\n"
-			+ "Note that the mentioned user must have registered.");
+		return ("**Use this command to get the SoundCloud information of a user.**\n"
+			+ "Note that the mentioned user has to be registered.");
 	}
 
 	@Override

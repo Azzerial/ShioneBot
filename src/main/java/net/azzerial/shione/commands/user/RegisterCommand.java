@@ -55,7 +55,7 @@ public class RegisterCommand extends Command {
 				.setAuthor(author)
 				.setSelf(self)
 				.setTitle(getName())
-				.setDescription("Are you sure to unregistered your current SoundCloud account? (An identity thief might still it from you.)")
+				.setDescription("Are you sure to unregister your current SoundCloud account? (An identity thief might steal it from you.)")
 				.setValidateAction(m -> {
 					deleteUserAccount(author.getId());
 					m.clearReactions().queue();
@@ -72,7 +72,7 @@ public class RegisterCommand extends Command {
 		
 		if (isRegistered(author)) {
 			sendCommandMessage(channel, author, self, "You have already registered!\n"
-				+ "If ever you want to change your account, you have to unregister then to register again.\n"
+				+ "If you want to change your account, you have to unregister to register again.\n"
 				+ "Type `./register` for more information.", colorError);
 			return ("!User has already registered.");
 		}
@@ -171,7 +171,7 @@ public class RegisterCommand extends Command {
 		return ("**Use this commands to register your SoundCloud account in Shione's Database.** " + "\n"
 			+ "Registering your account will enable Shione to link your SoundCloud account to Discord.\n"
 //			+ "You can register multiple accounts if needed, but you need to register at least one in order to use Shione's commands, which can be viewed by typing `./help`.\n"
-			+ "If ever someone has registered your account or that you can't register it, please PM **Azzerial#5348**.");
+			+ "If your account is already registered to someone else, please PM **@"+ShioneInfo.BOT_AUTHOR+"**.");
 	}
 
 	@Override
@@ -188,6 +188,7 @@ public class RegisterCommand extends Command {
 	public List<String> getSubCommands() {
 		return (Arrays.asList(
 			"register <soundcloud_link>",
+			"register <soundcloud_name>",
 			"register unregister"
 		));
 	}
@@ -196,7 +197,8 @@ public class RegisterCommand extends Command {
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
 			"`" + ShioneInfo.PREFIX + "register https://soundcloud.com/alexis` - Links *Alexis Fellenius* SoundCloud account to your Discord account.",
-			"`" + ShioneInfo.PREFIX + "register unregister` - Unregisters *Alexis Fellenius* SoundCloud account from your account."
+			"`" + ShioneInfo.PREFIX + "register kovenuk` - registers the Account from `https://soundcloud.com/kovenuk` to your Discord Account",
+            "`" + ShioneInfo.PREFIX + "register unregister` - Unregisters *Alexis Fellenius* SoundCloud account from your account."
 		));
 	}
 

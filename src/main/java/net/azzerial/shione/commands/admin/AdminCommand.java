@@ -54,8 +54,8 @@ public class AdminCommand extends Command {
 				sendCommandMessage(channel, author, self, "`" + username + "` is already admin.", colorError);
 				return ("!<Add> " + user.getName() + " is already admin.");
 			}
-			sendCommandMessage(channel, author, self, "`" + username + "` has been added to the admins' list.", colorCommand);
-			return ("<Add> " + user.getName() + " has been added to the admins' list.");
+			sendCommandMessage(channel, author, self, "`" + username + "` has been added to the admins list.", colorCommand);
+			return ("<Add> " + user.getName() + " has been added to the admins list.");
 		}
 		
 		if (args.length == 3
@@ -67,13 +67,13 @@ public class AdminCommand extends Command {
 			}
 			if (user == null) {
 				sendCommandMessage(channel, author, self, "`" + args[2] + "` isn't a valid parameter.", colorError);
-				return ("!<Remove> User fed an invalid paramater. (" + args[2] + ")");
+				return ("!<Remove> User fed an invalid parameter. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
 			if (!GuildEvent.getServer(event.getGuild().getId()).removeAdmin(user.getId())) {
 				if (event.getGuild().getOwner().getUser().getId().equals(user.getId())) {
-					sendCommandMessage(channel, author, self, "`" + username + "` is the guild's owner.\nYou can't remove him from the admins' list.", colorError);
-					return ("!<Remove> User tried to remove the guild's owner from the admins' list.");
+					sendCommandMessage(channel, author, self, "`" + username + "` is the guild's owner.\nYou can't remove him from the admins list.", colorError);
+					return ("!<Remove> User tried to remove the guild's owner from the admins list.");
 				} else {
 					sendCommandMessage(channel, author, self, "`" + username + "` isn't admin.", colorError);
 					return ("!<Remove> " + user.getName() + " isn't admin.");
@@ -97,7 +97,7 @@ public class AdminCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this commands to edit the bot's admins of this server.**");
+		return ("**Use this command to edit the bot's admins of this server.**");
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class AdminCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "admin list` - View the actual list of the bot's admins of this server.",
+			"`" + ShioneInfo.PREFIX + "admin list` - View the list of the bot's admins of this server.",
 			"`" + ShioneInfo.PREFIX + "admin add @Shione` - Adds Shione to the list of the bot's admins of this server.",
 			"`" + ShioneInfo.PREFIX + "admin remove @Shione` - Removes Shione from the list of the bot's admins of this server."
 		));

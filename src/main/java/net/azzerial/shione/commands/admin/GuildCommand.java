@@ -44,12 +44,12 @@ public class GuildCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this commands to edit the bot guild's settings of this server.**");
+		return ("**Use this commands to edit the bot's guild settings of this server.**");
 	}
 
 	@Override
 	public String getHelpDescription() {
-		return ("Edits the guild's settings.");
+		return ("Edits the guild settings.");
 	}
 
 	@Override

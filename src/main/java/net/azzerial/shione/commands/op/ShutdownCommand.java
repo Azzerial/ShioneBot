@@ -27,7 +27,7 @@ public class ShutdownCommand extends Command {
 			.setAuthor(author)
 			.setSelf(self)
 			.setTitle(getName())
-			.setDescription("Are you sure to shutdown the bot?")
+			.setDescription("Are you sure you want to shut down bot?")
 			.setValidateAction(m -> {
 				m.clearReactions().queue();
 				MessageUtil.editEmbedMessage(m, author, self, getName(), "じゃね〜 / Ja nē!", colorCommand);
@@ -67,12 +67,12 @@ public class ShutdownCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Shutdowns the bot.**");
+		return ("**Shuts down the bot.**");
 	}
 
 	@Override
 	public String getHelpDescription() {
-		return ("Shutdowns the bot.");
+		return ("Shuts down the bot.");
 	}
 
 	@Override
@@ -90,7 +90,7 @@ public class ShutdownCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "shutdown` - Shutdowns the bot."
+			"`" + ShioneInfo.PREFIX + "shutdown` - Shuts down the bot."
 		));
 	}
 
