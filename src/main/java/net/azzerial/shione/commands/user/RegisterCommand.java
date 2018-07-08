@@ -76,7 +76,7 @@ public class RegisterCommand extends Command {
 				+ "Type `./register` for more information.", colorError);
 			return ("!User has already registered.");
 		}
-		if (args[1].length() <= 23) {
+		if (args[1].length() <= 23 && (args[1].startsWith("https://") || args[1].startsWith("<https://"))) {
 			sendCommandMessage(channel, author, self, "Invalid link!", colorError);
 			return ("!Link too short.");
 		}
@@ -87,12 +87,25 @@ public class RegisterCommand extends Command {
 		} else {
 			link = args[1];
 		}
+
+		/*
+		 * When using the command, people might only want to type
+		 * the artist itself, so we might as well check if it's a link,
+		 * and use it as a permalink instead if it isn't.
+		 *
+		 */
+
 		String permalink = "";
 		if (!link.startsWith("https://soundcloud.com/")) {
-			sendCommandMessage(channel, author, self, "Invalid link!", colorError);
-			return ("!Link isn't from soundcloud.");
+			if (!link.startsWith("https://")) {
+				permalink=link;
+			} else {
+				sendCommandMessage(channel, author, self, "Invalid link!", colorError);
+				return ("!Link isn't from soundcloud.");
+			}
+		}else {
+			permalink = link.substring(23);
 		}
-		permalink = link.substring(23);
 		String userId = null;
 		userId = Shione.getSC2DAPI().getArtistIdFromPermalink(permalink);
 		if (userId == null) {
