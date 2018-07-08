@@ -58,7 +58,7 @@ public class WhoisCommand extends Command {
 			.setColor(colorCommand)
 			.addPage(EmoteUtil.INFORMATION, (m, e) -> {
 				MessageUtil.editEmbedMessage(m,
-					EmoteUtil.INFORMATION + " Whois " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
+					EmoteUtil.INFORMATION + " Who is " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + "?", artist.getPermalinkUrl(), self.getAvatarUrl(),
 					artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
 					null, null,
 					getInformationDescription(artist),
@@ -86,6 +86,28 @@ public class WhoisCommand extends Command {
 					"Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
 					colorCommand);
 			})
+                .addPage(EmoteUtil.CROSS_MARK, (m, e) -> {
+                    MessageUtil.editEmbedMessage(m,
+                            " " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + " on SoundCloud", artist.getPermalinkUrl(), self.getAvatarUrl(),
+                            artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
+                            null, null,
+                            getClosedDescription(artist),
+                            null,
+                            "Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
+                            colorCommand);
+                    m.clearReactions().queue();
+                })
+                .setTimeoutAction(m -> {
+                    MessageUtil.editEmbedMessage(m,
+                        " " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + " on SoundCloud", artist.getPermalinkUrl(), self.getAvatarUrl(),
+                        artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
+                        null, null,
+                        getClosedDescription(artist),
+                        null,
+                        "Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
+                        colorCommand);
+                    m.clearReactions().queue();
+                })
 			.build();
 		dialog.display(channel);
 
@@ -218,14 +240,21 @@ public class WhoisCommand extends Command {
 	}
 	
 	private String getLinksDescription(Artist artist) {
-		String description = "";
-		
-		description += "`" + artist.getUsername() + "` links:\n\n";
-		description += "__SoundCloud links:__\n";
-		description += " • [SoundCloud Home Page](" + artist.getPermalinkUrl() + ")\n";
-		description += " • [SoundCloud Avatar](" + artist.getAvatarDefaultUrl() + ")\n";
-		description += " • [SoundCloud Visual](" + artist.getVisualDefaultUrl() + ")";
-		return (description);
-	}
+        String description = "";
+
+        description += "SoundCloud links:\n";
+        description += " • [SoundCloud Home Page](" + artist.getPermalinkUrl() + ")\n";
+        description += " • [SoundCloud Avatar](" + artist.getAvatarDefaultUrl() + ")\n";
+        description += " • [SoundCloud Visual](" + artist.getVisualDefaultUrl() + ")";
+        return (description);
+    }
+
+    private String getClosedDescription(Artist artist) {
+        String description = "";
+        description += "" + artist.getPermalinkUrl() + "\n\n";
+        description += "__Followers:__`" + artist.getFollowersCount() + "`\n";
+        description += "__Tracks:__`" + artist.getTracksCount() + "`";
+        return (description);
+    }
 	
 }

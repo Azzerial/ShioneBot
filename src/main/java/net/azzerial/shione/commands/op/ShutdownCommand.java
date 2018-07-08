@@ -61,7 +61,8 @@ public class ShutdownCommand extends Command {
 			"goodnight",
 			"gn",
 			"die",
-			"kill"
+			"kill",
+			"kys"
 		));
 	}
 
