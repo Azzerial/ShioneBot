@@ -24,12 +24,14 @@ public class WhoisCommand extends Command {
 			sendSubCommandMessage(channel, author, self);
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
-		
-		if (event.getMessage().getMentionedUsers().isEmpty()) {
-			sendCommandMessage(channel, author, self, "You need to mention a user.", colorError);
-			return ("!No mentionned user.");
-		}
-		User user = event.getMessage().getMentionedUsers().get(0);
+
+        User user = event.getMessage().getMentionedUsers().get(0);
+		if (event.getMessage().getMentionedUsers().isEmpty() && !(event.getGuild().getMembersByEffectiveName(args[1],true).size()>0)) {
+            sendCommandMessage(channel, author, self, "You need to mention a user.", colorError);
+            return ("!No mentioned user.");
+        } else if (event.getMessage().getMentionedUsers().isEmpty()){
+		    user = event.getGuild().getMembersByEffectiveName(args[1],true).get(0).getUser();
+        }
 
 		if (!RegisterCommand.isRegistered(author)) {
 			sendCommandMessage(channel, author, self, "You need to register in order to user this commands.", colorError);
@@ -41,7 +43,7 @@ public class WhoisCommand extends Command {
 			} else {
 				sendCommandMessage(channel, author, self, "`" + user.getName() + "` isn't registered.", colorError);
 			}
-			return ("!Mentionned user wasn't registered.");
+			return ("!Mentioned user wasn't registered.");
 		}
 		Artist artist = RegisterCommand.getUserSoundCloudArtist(user);
 		
@@ -140,7 +142,7 @@ public class WhoisCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this commands to get the SoundCloud informations of a user.**\n"
+		return ("**Use this commands to get the SoundCloud information of a user.**\n"
 			+ "Note that the mentioned user must have registered.");
 	}
 
