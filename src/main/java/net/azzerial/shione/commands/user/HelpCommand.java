@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.TreeMap;
 
 import net.azzerial.shione.commands.Command;
+import net.azzerial.shione.core.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.listeners.GuildEvent;
@@ -41,7 +42,7 @@ public class HelpCommand extends Command {
 		for (int i = 0; i < keys.length; i += 1) {
 			Command cmd = commands.get(keys[i]);
 			
-			if (cmd.isOpRequired() && !Shione.getPermissions().isOp(author)) {
+			if (cmd.isOpRequired() && !Permissions.isOp(author)) {
 				continue;
 			}
 			if (cmd.isAdminRequired() && !GuildEvent.getServer(event.getGuild().getId()).isAdmin(author)) {
@@ -125,7 +126,7 @@ public class HelpCommand extends Command {
 		for (int i = 0; i < keys.length; i += 1) {
 			Command cmd = commands.get(keys[i]);
 			
-			if (cmd.isOpRequired() && !Shione.getPermissions().isOp(author)) {
+			if (cmd.isOpRequired() && !Permissions.isOp(author)) {
 				continue;
 			}
 			if (cmd.isAdminRequired() && !GuildEvent.getServer(event.getGuild().getId()).isAdmin(author)) {

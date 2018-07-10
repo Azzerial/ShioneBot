@@ -20,7 +20,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public abstract class Command extends ListenerAdapter {
 
 	public String INVALID_AMOUNT_OF_AGRUMENTS = "!Amount of arguments was incorrect. Showing SubCommands page.";
-	public String UNKNOWN = "!Unknown subcommand.";
+	public String UNKNOWN = "!Unknown command return.";
 	
 	public static Color colorInformation = new Color(77, 195, 255); //LIGHT BLUE
 	public static Color colorCommand = new Color(255, 102, 179); //PINK
@@ -36,13 +36,22 @@ public abstract class Command extends ListenerAdapter {
 	public abstract boolean isAdminRequired();
 	public abstract boolean isOpRequired();
 
+	public enum commandType{
+		BROWSING,
+		FUN,
+		MUSIC,
+		USER_SETTINGS,
+		GUILD_SETTINGS,
+		BOT_SETTINGS
+	}
+
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
 		if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) {
 			return;
 		}
 		if (containsCommand(event.getMessage()) && isOpRequired()) {
-			if (!Shione.getPermissions().isOp(event.getAuthor())) {
+			if (!Permissions.isOp(event.getAuthor())) {
 				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Op.");
 				sendMissingMessage(event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser(), true);
 				return;

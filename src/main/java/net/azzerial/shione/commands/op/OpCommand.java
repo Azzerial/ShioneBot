@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.azzerial.shione.commands.Command;
+import net.azzerial.shione.core.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.dv8tion.jda.core.JDA;
@@ -25,7 +26,7 @@ public class OpCommand extends Command {
 		
 		if (args.length == 2
 		&& args[1].equalsIgnoreCase("list")) {
-			ArrayList<String> ops = Shione.getPermissions().getOps();
+			ArrayList<String> ops = Permissions.getOps();
 			Collections.sort(ops);
 			String ops_string = "";
 			
@@ -50,7 +51,7 @@ public class OpCommand extends Command {
 				return ("!<Add> User fed an invalid paramater. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
-			if (!Shione.getPermissions().addOps(user.getId())) {
+			if (!Permissions.addOp(user.getId())) {
 				sendCommandMessage(channel, author, self, "`" + username + "` is already op.", colorError);
 				return ("!<Add> " + user.getName() + " is already op.");
 			}
@@ -70,7 +71,7 @@ public class OpCommand extends Command {
 				return ("!<Remove> User fed an invalid paramater. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
-			if (!Shione.getPermissions().removeOps(user.getId())) {
+			if (!Permissions.removeOp(user.getId())) {
 				if (user.getId().equals(ShioneInfo.BOT_AUTHOR_ID)) {
 					sendCommandMessage(channel, author, self, "`" + username + "` is the bot's author.\nYou can't remove him from the op list.", colorError);
 					return ("!<Remove> User tried to remove the bot's author from the Ops list.");

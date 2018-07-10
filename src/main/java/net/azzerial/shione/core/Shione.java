@@ -63,10 +63,6 @@ public class Shione {
 		return (scapi);
 	}
 	
-	public static Permissions getPermissions() {
-		return (permissions);
-	}
-	
 	public static EventWaiter getEventWaiter() {
 		return (waiter);
 	}
@@ -108,7 +104,10 @@ public class Shione {
 			scapi = sc2d_builder.build();
 			
 			// Set the Ops list.
-			permissions = Permissions.getInstance();
+			Permissions.setupPermissions();
+			for (String op : Permissions.getOps()) {
+				System.out.println("Op: " + op);
+			}
 
 		} catch (IllegalArgumentException e) {
 			System.out.println(ShioneInfo.getTime() + "[Core/Shione]: Some of the needed informations went missing! Please provide valid informations in the Config.json file.");

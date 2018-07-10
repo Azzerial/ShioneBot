@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import net.azzerial.shione.core.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -193,7 +194,7 @@ public class Server {
 	// --- Checkers ---
 
 	public boolean isAdmin(User user) {
-		if (Shione.getPermissions().isOp(user)
+		if (Permissions.isOp(user)
 		|| admins.contains(user.getId())) {
 			return (true);
 		}

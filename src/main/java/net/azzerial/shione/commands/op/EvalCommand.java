@@ -8,6 +8,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import net.azzerial.shione.commands.Command;
+import net.azzerial.shione.core.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.dv8tion.jda.core.entities.ChannelType;
@@ -74,7 +75,7 @@ public class EvalCommand extends Command {
 			engine.put("self", event.getJDA().getSelfUser());
 			engine.put("jda", event.getJDA());
 			engine.put("sc2d", Shione.getSC2DAPI());
-			engine.put("permissions", Shione.getPermissions());
+			engine.put("permissions", Permissions.getPermissions());
 			if (event.isFromType(ChannelType.TEXT)) {
 				engine.put("guild", event.getGuild());
 				engine.put("member", event.getMember());

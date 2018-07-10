@@ -1,7 +1,8 @@
 /.gradle/
-/.gradle/
-/.settings/
 /.idea/
+/.metadata/
+/.recommenders/
+/.settings/
 /bin/
 /build/
 /Guilds/

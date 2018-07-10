@@ -86,68 +86,12 @@ public class WhoisCommand extends Command {
 					"Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
 					colorCommand);
 			})
-                .addPage(EmoteUtil.CROSS_MARK, (m, e) -> {
-                    MessageUtil.editEmbedMessage(m,
-                            " " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + " on SoundCloud", artist.getPermalinkUrl(), self.getAvatarUrl(),
-                            artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
-                            null, null,
-                            getClosedDescription(artist),
-                            null,
-                            "Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
-                            colorCommand);
-                    m.clearReactions().queue();
-                })
-                .setTimeoutAction(m -> {
-                    MessageUtil.editEmbedMessage(m,
-                        " " + (event.getGuild().isMember(user) ? event.getGuild().getMember(user).getEffectiveName() : user.getName()) + " on SoundCloud", artist.getPermalinkUrl(), self.getAvatarUrl(),
-                        artist.getAvatar().setFormat(AvatarFormat.T200x200).getUrl(),
-                        null, null,
-                        getClosedDescription(artist),
-                        null,
-                        "Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
-                        colorCommand);
-                    m.clearReactions().queue();
-                })
+			.addPage(EmoteUtil.HEAVY_MULTIPLICATION_X, (m, e) -> {
+				m.delete().queue();
+			})
 			.build();
 		dialog.display(channel);
 
-		/*
-		 * To display:
-		 * 
-		 * --- Info:
-		 * Title:
-		 * 	Username + pro
-		 * 	PageUrl
-		 * Personal infos if provided:
-		 * 	Names
-		 * 	City, country
-		 * 	Description
-		 * Values:
-		 * 	Posts, playlists, albums
-		 * 	Followers / followings
-		 * 	Total likes, reposts
-		 * 
-		 * --- Stats (+ rank in server):
-		 * Title:
-		 * 	Username + pro
-		 * 	PageUrl
-		 * Stats:
-		 *   (YOU)
-		 * 	Posts
-		 * 	Playlists
-		 * 	Albums
-		 *   (SOCIAL)
-		 * 	Total Likes
-		 * 	Reposts
-		 * 	Comments
-		 *   (INTERACTIONS)
-		 * 	Followers
-		 * 	Followings
-		 * 
-		 * --- Timeout Action:
-		 * Remove reactions but do not edit the message
-		 */
-		
 		return ("Displayed the user's SoundCloud page.");
 	}
 
