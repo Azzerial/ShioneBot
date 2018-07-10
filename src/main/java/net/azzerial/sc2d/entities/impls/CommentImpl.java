@@ -6,6 +6,7 @@ import net.azzerial.sc2d.builders.EntityBuilder;
 import net.azzerial.sc2d.core.API;
 import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.sc2d.entities.Comment;
+import net.azzerial.sc2d.utils.MiscUtil;
 import org.json.JSONObject;
 
 public class CommentImpl implements Comment {
@@ -125,6 +126,11 @@ public class CommentImpl implements Comment {
 	}
 
 	@Override
+	public String getTimestampString() {
+		return (MiscUtil.secondsToStringFormat(getTimestampSeconds(),true));
+	}
+
+	@Override
 	public long getTrackDuration() {
 		return (trackDuration);
 	}
@@ -132,6 +138,11 @@ public class CommentImpl implements Comment {
 	@Override
 	public int getTrackDurationSeconds() {
 		return (Math.toIntExact(trackDuration) / 1000);
+	}
+
+	@Override
+	public String getTrackDurationString() {
+		return (MiscUtil.secondsToStringFormat(getTrackDurationSeconds(),true));
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class API {
 
 	// -- Request Paths Elements --
 
-	public final String SOUNDCLOUD_URL = "https://soundcloud.com/";
+	public static final String SOUNDCLOUD_URL = "https://soundcloud.com/";
 	// APIs
 	private final String API = "https://api.soundcloud.com/";
 	private final String API_V2 = "https://api-v2.soundcloud.com/";
@@ -27,6 +27,7 @@ public class API {
 	private final String SUBRSC_FOLLOWERS = "/followers?";
 	private final String SUBRSC_FOLLOWINGS = "/followings?";
 	private final String SUBRSC_PLAYLISTS = "/playlists?";
+	private final String SUBRSC_STREAMS = "/streams?";
 	private final String SUBRSC_TRACKS = "/tracks?";
 	private final String SUBRSC_WEB_PROFILE = "/web-profiles?";
 	// Parameters
@@ -126,6 +127,14 @@ public class API {
 
 	public String pathCommentEntity(String commentId) {
 		return (API_V2 + RSC_COMMENTS + commentId + "?" + CLIENT_ID + clientId + "&" + APP_VERSION + appVersion);
+	}
+
+	public String pathTrackEntity(String trackId) {
+		return (API_V2 + RSC_TRACKS + trackId + "?" + CLIENT_ID + clientId + "&" + APP_VERSION + appVersion);
+	}
+
+	public String pathTrackStreamData(String trackId) {
+		return (API + "i1/" + RSC_TRACKS + trackId + SUBRSC_STREAMS + CLIENT_ID + clientId);
 	}
 
 }

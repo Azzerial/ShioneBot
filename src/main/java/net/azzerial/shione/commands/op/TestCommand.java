@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import net.azzerial.sc2d.entities.Comment;
+import net.azzerial.sc2d.entities.Track;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
@@ -22,8 +23,48 @@ public class TestCommand extends Command {
 		if (args.length != 2) {
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
-		Comment c = Shione.getSC2DAPI().getCommentById(args[1]);
+		Track t = Shione.getSC2DAPI().getTrackById(args[1]);
 
+		String content = "";
+		content += "Artist Id: `" + t.getArtistId() + "`\n";
+		content += "Artist Permalink: `" + t.getArtistPermalink() + "`\n";
+		content += "Artist Username: `" + t.getArtistUsername() + "`\n";
+		content += "Comments Count: `" + t.getCommentsCount() + "`\n";
+		String day = (t.getCreationDate().get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "") + t.getCreationDate().get(Calendar.DAY_OF_MONTH);
+		String month = (t.getCreationDate().get(Calendar.MONTH) < 10 ? "0" : "") + (t.getCreationDate().get(Calendar.MONTH) + 1);
+		String year = "" + t.getCreationDate().get(Calendar.YEAR);
+		content += "Creation Date: `" + day + "/" + month + "/" + year + "`\n";
+		content += "Description: `" + t.getDescription() + "`\n";
+		content += "Download Count: `" + t.getDownloadCount() + "`\n";
+		content += "Download Url: `" + t.getDownloadUrl() + "`\n";
+		content += "Duration: `" + t.getDuration() + "`\n";
+		content += "Duration Seconds: `" + t.getDurationSeconds() + "`\n";
+		content += "Duration String: `" + t.getDurationString() + "`\n";
+		content += "Genre: `" + t.getGenre() + "`\n";
+		content += "Likes Count: `" + t.getLikesCount() + "`\n";
+		content += "Permalink: `" + t.getPermalink() + "`\n";
+		content += "Permalink Url: `" + t.getPermalinkUrl() + "`\n";
+		content += "Playback Count: `" + t.getPlaybackCount() + "`\n";
+		content += "Reposts count: `" + t.getRepostsCount() + "`\n";
+		content += "Stream Preview Url: `" + t.getStreamPreviewUrl() + "`\n";
+		content += "Stream Url: `" + t.getStreamUrl() + "`\n";
+		content += "Tags: `";
+		for (String tag : t.getTags()) {
+			content += tag + ", ";
+		}
+		content = content.substring(0, content.length() - 2);
+		content += "`\n";
+		content += "Title: `" + t.getTitle() + "`\n";
+		content += "Id: `" + t.getTrackId() + "`\n";
+		content += "Waveform Image Url: `" + t.getWaveformImageUrl() + "`\n";
+		content += "Is Commentable: `" + t.isCommentable() + "`\n";
+		content += "Is Downloadable: `" + t.isDownloadable() + "`\n";
+		content += "Is Public: `" + t.isPublic() + "`\n";
+		content += "Is Streamable: `" + t.isStreamable() + "`\n";
+
+		sendCommandMessage(channel, author, self, content, colorInformation);
+		/* Comment
+		Comment c = Shione.getSC2DAPI().getCommentById(args[1]);
 		String content = "";
 		content += "Artist Id: `" + c.getArtistId() + "`\n";
 		content += "Artist Permalink: `" + c.getArtistPermalink() + "`\n";
@@ -37,15 +78,15 @@ public class TestCommand extends Command {
 		String year = "" + c.getCreationDate().get(Calendar.YEAR);
 		content += "Comment Creation Date: `" + day + "/" + month + "/" + year + "`\n";
 		content += "Comment Id: `" + c.getId() + "`\n";
-		content += "Comment Timestamp: `" + secondsToMSFormat(c.getTimestampSeconds()) + "`\n";
+		content += "Comment Timestamp: `" + c.getTimestampString() + "`\n";
 		content += "Comment Timestamp Long: `" + c.getTimestamp() + "`\n";
-		content += "Track Duration: `" + secondsToMSFormat(c.getTrackDurationSeconds()) + "`\n";
+		content += "Track Duration: `" + c.getTrackDurationString() + "`\n";
 		content += "Track Duration Long: `" + c.getTrackDuration() + "`\n";
 		content += "Track Id: `" + c.getTrackId() + "`\n";
 		content += "Track Permalink: `" + c.getTrackPermalink() + "`\n";
 		content += "Track Title: `" + c.getTrackTitle() + "`";
-
 		sendCommandMessage(channel, author, self, content, colorInformation);
+		*/
 		return ("Tested.");
 	}
 

@@ -22,8 +22,10 @@ public interface Comment {
 	long getIdLong();
 	long getTimestamp();
 	int getTimestampSeconds();
+	String getTimestampString();
 	long getTrackDuration();
 	int getTrackDurationSeconds();
+	String getTrackDurationString();
 	String getTrackId();
 	long getTrackIdLong();
 	String getTrackPermalink();

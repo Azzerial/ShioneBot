@@ -26,7 +26,6 @@ public class ArtistImpl implements Artist {
 	private String fullName;
 	private String lastName;
 	private long likesCount;
-	private String pageUrl;
 	private String permalink;
 	private String planSubscription ;
 	private long playlistsCount;
@@ -138,7 +137,7 @@ public class ArtistImpl implements Artist {
 
 	@Override
 	public String getPermalinkUrl() {
-		return (pageUrl);
+		return (API.SOUNDCLOUD_URL + permalink);
 	}
 
 	@Override
@@ -261,11 +260,6 @@ public class ArtistImpl implements Artist {
 	
 	public ArtistImpl setLikesCount(long likesCount) {
 		this.likesCount = likesCount;
-		return (this);
-	}
-	
-	public ArtistImpl setPageUrl(String pageUrl) {
-		this.pageUrl = pageUrl;
 		return (this);
 	}
 	

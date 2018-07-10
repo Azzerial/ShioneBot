@@ -1,10 +1,7 @@
 package net.azzerial.sc2d.core;
 
 import net.azzerial.sc2d.builders.EntityBuilder;
-import net.azzerial.sc2d.entities.Avatar;
-import net.azzerial.sc2d.entities.Comment;
-import net.azzerial.sc2d.entities.Visual;
-import net.azzerial.sc2d.entities.Artist;
+import net.azzerial.sc2d.entities.*;
 import org.json.JSONObject;
 
 public class SC2D {
@@ -118,4 +115,19 @@ public class SC2D {
 		return (EntityBuilder.createComment(api, commentObj));
 	}
 
+	public Track getTrackById(String trackId) {
+		if (trackId == null || trackId.isEmpty()) {
+			return (null);
+		}
+		// Checks if the trackId is only made of digits.
+		if (!trackId.matches("^([0-9]+)$")) {
+			return (null);
+		}
+		JSONObject trackObj = api.requestJson(api.pathTrackEntity(trackId));
+		JSONObject streamObj = api.requestJson(api.pathTrackStreamData(trackId));
+		if (trackObj == null || streamObj == null) {
+			return (null);
+		}
+		return (EntityBuilder.createTrack(api, trackObj, streamObj));
+	}
 }
