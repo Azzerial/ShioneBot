@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class TrackImpl implements Track {
 
 	private API api;

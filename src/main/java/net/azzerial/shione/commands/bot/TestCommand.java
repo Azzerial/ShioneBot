@@ -1,17 +1,10 @@
-package net.azzerial.shione.commands.op;
+package net.azzerial.shione.commands.bot;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import net.azzerial.sc2d.entities.Comment;
-import net.azzerial.sc2d.entities.Track;
 import net.azzerial.shione.commands.Command;
-import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.entities.Server;
-import net.azzerial.shione.listeners.GuildEvent;
+import net.azzerial.shione.utils.EmoteUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -20,9 +13,12 @@ public class TestCommand extends Command {
 
 	@Override
 	public String onCommand(MessageReceivedEvent event, String[] args, TextChannel channel, User author, User self) {
-		if (args.length != 2) {
+		if (args.length != 1) {
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
+
+		sendCommandMessage(channel, author, self, EmoteUtil.ROBOT_FACE, colorCommand);
+		/*
 		Track t = Shione.getSC2DAPI().getTrackById(args[1]);
 
 		String content = "";
@@ -63,6 +59,7 @@ public class TestCommand extends Command {
 		content += "Is Streamable: `" + t.isStreamable() + "`\n";
 
 		sendCommandMessage(channel, author, self, content, colorInformation);
+		*/
 		/* Comment
 		Comment c = Shione.getSC2DAPI().getCommentById(args[1]);
 		String content = "";
@@ -111,6 +108,11 @@ public class TestCommand extends Command {
 	@Override
 	public String getName() {
 		return ("Test Command");
+	}
+
+	@Override
+	public String getType() {
+		return (BOT_SETTINGS);
 	}
 
 	@Override

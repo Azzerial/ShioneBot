@@ -1,10 +1,6 @@
 package net.azzerial.shione.core;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 import java.util.HashMap;
 
@@ -32,8 +28,45 @@ public class Database {
 
 			statement.setQueryTimeout(30);
 			statement.execute("PRAGMA foreign_keys = ON");
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS Ops (id TEXT NOT NULL)");
 
+			// Create the Ops table
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
+				"Ops(" +
+					"id TEXT," +
+					"PRIMARY KEY (id)" +
+				")");
+		/*
+			// Create the Guilds table
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
+				"Guilds(" +
+					"id INTEGER," +
+					"PRIMARY KEY (id)" +
+				")");
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
+				"GuildAdmins(" +
+					"guild_id INTEGER," +
+					"list TEXT NOT NULL," +
+					"PRIMARY KEY (guild_id)," +
+					"FOREIGN KEY (guild_id) REFERENCES Guilds(id) " +
+						"ON UPDATE NO ACTION " +
+						"ON DELETE CASCADE" +
+				")");
+			statement.executeUpdate("REPLACE INTO Guilds (" +
+					"id)" +
+				"VALUES " +
+					"(1)," +
+					"(2)," +
+					"(3)"
+				);
+			statement.executeUpdate("REPLACE INTO GuildAdmins (" +
+					"guild_id," +
+					"list)" +
+				"VALUES " +
+					"(1, '1231425215,3123123312,3124214432')," +
+					"(2, '3243245325,2432454353,4324325325')," +
+					"(3, '5435345345,5435342643,6722472472')"
+				);
+		*/
 			// Permissions Statements
 			preparedStatements.put(Permissions.ADD_OP, connection.prepareStatement("REPLACE INTO Ops (id) VALUES (?)"));
 			preparedStatements.put(Permissions.GET_OPS, connection.prepareStatement("SELECT id FROM Ops"));

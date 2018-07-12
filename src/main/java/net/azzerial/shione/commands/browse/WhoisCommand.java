@@ -1,10 +1,11 @@
-package net.azzerial.shione.commands.user;
+package net.azzerial.shione.commands.browse;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import net.azzerial.shione.commands.Command;
+import net.azzerial.shione.commands.user.RegisterCommand;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.menus.dialogs.PageDialog;
@@ -119,6 +120,11 @@ public class WhoisCommand extends Command {
 	public String getName() {
 		return ("Whois Command");
 	}
+
+	@Override
+	public String getType() {
+		return (BROWSING);
+	}
 	
 	@Override
 	public List<String> getSubCommands() {
@@ -184,21 +190,23 @@ public class WhoisCommand extends Command {
 	}
 	
 	private String getLinksDescription(Artist artist) {
-        String description = "";
+		String description = "";
 
-        description += "SoundCloud links:\n";
-        description += " • [SoundCloud Home Page](" + artist.getPermalinkUrl() + ")\n";
-        description += " • [SoundCloud Avatar](" + artist.getAvatarDefaultUrl() + ")\n";
-        description += " • [SoundCloud Visual](" + artist.getVisualDefaultUrl() + ")";
-        return (description);
-    }
+		description += "SoundCloud links:\n";
+		description += " • [SoundCloud Home Page](" + artist.getPermalinkUrl() + ")\n";
+		description += " • [SoundCloud Avatar](" + artist.getAvatarDefaultUrl() + ")\n";
+		description += " • [SoundCloud Visual](" + artist.getVisualDefaultUrl() + ")";
+		return (description);
+	}
 
-    private String getClosedDescription(Artist artist) {
-        String description = "";
-        description += "" + artist.getPermalinkUrl() + "\n\n";
-        description += "__Followers:__`" + artist.getFollowersCount() + "`\n";
-        description += "__Tracks:__`" + artist.getTracksCount() + "`";
-        return (description);
-    }
+	@SuppressWarnings("unused")
+	private String getClosedDescription(Artist artist) {
+		String description = "";
+	
+		description += "" + artist.getPermalinkUrl() + "\n\n";
+		description += "__Followers:__`" + artist.getFollowersCount() + "`\n";
+		description += "__Tracks:__`" + artist.getTracksCount() + "`";
+		return (description);
+	}
 	
 }

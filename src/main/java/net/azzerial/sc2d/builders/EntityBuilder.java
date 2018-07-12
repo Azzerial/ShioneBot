@@ -3,7 +3,6 @@
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.sc2d.entities.Comment;

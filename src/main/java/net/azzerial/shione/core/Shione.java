@@ -5,21 +5,22 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.concurrent.Executors;
+
 import javax.security.auth.login.LoginException;
 
-import net.azzerial.shione.commands.admin.AdminCommand;
-import net.azzerial.shione.commands.op.EvalCommand;
-import net.azzerial.shione.commands.admin.GuildCommand;
-import net.azzerial.shione.commands.user.HelpCommand;
-import net.azzerial.shione.commands.op.OpCommand;
-import net.azzerial.shione.commands.user.RegisterCommand;
-import net.azzerial.shione.commands.op.ShutdownCommand;
-import net.azzerial.shione.commands.op.TestCommand;
-import net.azzerial.shione.commands.user.WhoisCommand;
-import net.azzerial.shione.menus.EventWaiter;
-import net.azzerial.shione.listeners.GuildEvent;
-import net.azzerial.sc2d.core.SC2D;
 import net.azzerial.sc2d.builders.SC2DBuilder;
+import net.azzerial.sc2d.core.SC2D;
+import net.azzerial.shione.commands.HelpCommand;
+import net.azzerial.shione.commands.bot.EvalCommand;
+import net.azzerial.shione.commands.bot.OpCommand;
+import net.azzerial.shione.commands.bot.ShutdownCommand;
+import net.azzerial.shione.commands.bot.TestCommand;
+import net.azzerial.shione.commands.browse.WhoisCommand;
+import net.azzerial.shione.commands.user.RegisterCommand;
+import net.azzerial.shione.commandsguild.AdminCommand;
+import net.azzerial.shione.commandsguild.GuildCommand;
+import net.azzerial.shione.listeners.GuildEvent;
+import net.azzerial.shione.menus.EventWaiter;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -39,7 +40,6 @@ public class Shione {
 	
 	private static JDA api;
 	private static SC2D scapi;
-	private static Permissions permissions;
 	private static EventWaiter waiter;
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package net.azzerial.shione.commands.admin;
+package net.azzerial.shione.commandsguild;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +55,11 @@ public class GuildCommand extends Command {
 	@Override
 	public String getName() {
 		return ("Guild Command");
+	}
+
+	@Override
+	public String getType() {
+		return (GUILD_SETTINGS);
 	}
 
 	@Override

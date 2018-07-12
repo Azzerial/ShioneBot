@@ -1,4 +1,4 @@
-package net.azzerial.shione.commands.op;
+package net.azzerial.shione.commands.bot;
 
 import java.util.Arrays;
 import java.util.List;
@@ -129,6 +129,11 @@ public class EvalCommand extends Command {
 	@Override
 	public String getName() {
 		return ("Eval Command");
+	}
+
+	@Override
+	public String getType() {
+		return (BOT_SETTINGS);
 	}
 
 	@Override

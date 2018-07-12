@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import net.azzerial.shione.core.Permissions;
-import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.listeners.GuildEvent;
 import net.azzerial.shione.utils.MessageUtil;
@@ -35,15 +34,14 @@ public abstract class Command extends ListenerAdapter {
 	public abstract List<String> getUsageExamples();
 	public abstract boolean isAdminRequired();
 	public abstract boolean isOpRequired();
+	public abstract String getType();
 
-	public enum commandType{
-		BROWSING,
-		FUN,
-		MUSIC,
-		USER_SETTINGS,
-		GUILD_SETTINGS,
-		BOT_SETTINGS
-	}
+	public String BROWSING = "BROWSING";
+	public String FUN = "FUN";
+	public String MUSIC = "MUSIC";
+	public String USER_SETTINGS = "USER_SETTINGS";
+	public String GUILD_SETTINGS = "GUILD_SETTINGS";
+	public String BOT_SETTINGS = "BOT_SETTINGS";
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {

@@ -105,7 +105,7 @@ public class MessageUtil {
 	// Message Editors
 	
 	public static void editEmbedMessage (Message message, User author, User self,
-			String title,String description, Color color) {
+			String title, String description, Color color) {
 		editEmbedMessage(message,
 			title, null, self.getAvatarUrl(),
 			null,

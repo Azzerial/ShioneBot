@@ -1,4 +1,4 @@
-package net.azzerial.shione.commands.op;
+package net.azzerial.shione.commands.bot;
 
 import java.util.Arrays;
 import java.util.List;
@@ -79,6 +79,11 @@ public class ShutdownCommand extends Command {
 	@Override
 	public String getName() {
 		return ("Shutdown Command");
+	}
+
+	@Override
+	public String getType() {
+		return (BOT_SETTINGS);
 	}
 
 	@Override

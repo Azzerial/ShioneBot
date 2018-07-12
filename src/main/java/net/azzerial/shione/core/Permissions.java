@@ -13,6 +13,8 @@ public class Permissions {
 	public static final String GET_OPS = "GET_OPS";
 	public static final String REMOVE_OP = "REMOVE_OP";
 
+	public static final String ADMIN_REQUIRED_MESSAGE = "You do not have the permission to run this commands. (Admin required)";
+	public static final String PERMISSION_REQUIRED_MESSAGE = "You do not have the permission to run this commands.";
 	public static final String OP_REQUIRED_MESSAGE = "You do not have the permission to run this commands. (Op required)";
 
 	private static Permissions permissions;
@@ -77,6 +79,7 @@ public class Permissions {
 		return (false);
 	}
 
+	@SuppressWarnings("unchecked")
 	public static ArrayList<String> getOps() {
 		return ((ArrayList<String>) ops.clone());
 	}

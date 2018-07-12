@@ -7,8 +7,9 @@ import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.sc2d.entities.Avatar;
 import net.azzerial.sc2d.entities.Visual;
 
+@SuppressWarnings("unused")
 public class ArtistImpl implements Artist {
-
+	
 	private API api;
 	private long id;
 	

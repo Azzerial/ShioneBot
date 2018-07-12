@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class API {
 
 	// -- Request Paths Elements --

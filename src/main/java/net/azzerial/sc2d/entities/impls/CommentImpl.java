@@ -9,6 +9,7 @@ import net.azzerial.sc2d.entities.Comment;
 import net.azzerial.sc2d.utils.MiscUtil;
 import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class CommentImpl implements Comment {
 
 	private API api;

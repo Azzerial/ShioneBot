@@ -183,7 +183,12 @@ public class RegisterCommand extends Command {
 	public String getName() {
 		return ("Register Command");
 	}
-	
+
+	@Override
+	public String getType() {
+		return (USER_SETTINGS);
+	}
+
 	@Override
 	public List<String> getSubCommands() {
 		return (Arrays.asList(

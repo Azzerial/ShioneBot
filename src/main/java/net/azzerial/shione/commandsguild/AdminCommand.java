@@ -1,4 +1,4 @@
-package net.azzerial.shione.commands.admin;
+package net.azzerial.shione.commandsguild;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -108,6 +108,11 @@ public class AdminCommand extends Command {
 	@Override
 	public String getName() {
 		return ("Admin Command");
+	}
+
+	@Override
+	public String getType() {
+		return (GUILD_SETTINGS);
 	}
 
 	@Override
