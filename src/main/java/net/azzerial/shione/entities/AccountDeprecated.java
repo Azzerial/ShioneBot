@@ -1,11 +1,11 @@
 package net.azzerial.shione.entities;
 
-public class Account {
+public class AccountDeprecated {
 
 	private final String discordId;
 	private final String soundcloudId;
 	
-	public Account(String discordId, String soundcloudId) {
+	public AccountDeprecated(String discordId, String soundcloudId) {
 		this.discordId = discordId;
 		this.soundcloudId = soundcloudId;
 	}

@@ -2,7 +2,7 @@ package net.azzerial.shione.commands;
 
 import java.util.*;
 
-import net.azzerial.shione.core.Permissions;
+import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.listeners.GuildEvent;

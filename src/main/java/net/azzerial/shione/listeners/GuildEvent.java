@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.TreeMap;
 
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.entities.Server;
+import net.azzerial.shione.entities.ServerDeprecated;
 import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
@@ -16,14 +16,14 @@ public class GuildEvent extends ListenerAdapter {
 	
 	public static final String ADMIN_REQUIRED_MESSAGE = "You do not have the permission to run this commands. (Admin required)";
 	
-	private static TreeMap<String, Server> guilds;
+	private static TreeMap<String, ServerDeprecated> guilds;
 
 	public GuildEvent() {
 		createGuildsFolder();
 		
-		guilds = new TreeMap<String, Server>();
+		guilds = new TreeMap<String, ServerDeprecated>();
 		for (String guildId : new File("./Guilds").list()) {
-			Server server = new Server(guildId);
+			ServerDeprecated server = new ServerDeprecated(guildId);
 			guilds.put(guildId, server);
 		}
 	}
@@ -64,11 +64,11 @@ public class GuildEvent extends ListenerAdapter {
 		File guildDir = new File("./Guilds/" + guild.getId());
 		guildDir.mkdirs();
 
-		Server server = new Server(guild.getId());
+		ServerDeprecated server = new ServerDeprecated(guild.getId());
 		guilds.put(guild.getId(), server);
 	}
 	
-	public static Server getServer(String guildId) {
+	public static ServerDeprecated getServer(String guildId) {
 		return (guilds.get(guildId));
 	}
 }

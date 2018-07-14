@@ -21,16 +21,21 @@ public class WhoisCommand extends Command {
 	
 	@Override
 	public String onCommand(MessageReceivedEvent event, String[] args, TextChannel channel, User author, User self) {
-		if (args.length != 2) {
+		if (args.length == 1) {
 			sendSubCommandMessage(channel, author, self);
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
 
-		if (event.getMessage().getMentionedUsers().isEmpty() && event.getGuild().getMembersByEffectiveName(args[1],true).isEmpty()) {
-			sendCommandMessage(channel, author, self, "There are no users named that way in this guild. Maybe you should try mentioning a user instead.", colorError);
+		String searchedUser = "";
+		for (int i = 1; i < args.length; i += 1) {
+			searchedUser += args[i] + " ";
+		}
+		searchedUser = searchedUser.substring(0, searchedUser.length() - 1);
+		if (event.getMessage().getMentionedUsers().isEmpty() && event.getGuild().getMembersByEffectiveName(searchedUser,true).isEmpty()) {
+			sendCommandMessage(channel, author, self, "There are no users named `" + searchedUser + "` in this guild. Maybe you should try mentioning a user instead.", colorError);
 			return ("!No user named that way in the guild.");
 		}
-		User user = (!event.getMessage().getMentionedUsers().isEmpty() ? (event.getMessage().getMentionedUsers().get(0)) : (event.getGuild().getMembersByEffectiveName(args[1],true).get(0).getUser()));
+		User user = (!event.getMessage().getMentionedUsers().isEmpty() ? (event.getMessage().getMentionedUsers().get(0)) : (event.getGuild().getMembersByEffectiveName(searchedUser,true).get(0).getUser()));
 
 		if (!RegisterCommand.isRegistered(author)) {
 			sendCommandMessage(channel, author, self, "You need to register in order to user this commands.", colorError);

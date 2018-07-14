@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.azzerial.shione.commands.Command;
-import net.azzerial.shione.core.Permissions;
+import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.dv8tion.jda.core.JDA;

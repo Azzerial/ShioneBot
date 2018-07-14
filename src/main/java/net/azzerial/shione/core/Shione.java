@@ -19,6 +19,8 @@ import net.azzerial.shione.commands.browse.WhoisCommand;
 import net.azzerial.shione.commands.user.RegisterCommand;
 import net.azzerial.shione.commandsguild.AdminCommand;
 import net.azzerial.shione.commandsguild.GuildCommand;
+import net.azzerial.shione.database.Database;
+import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.listeners.GuildEvent;
 import net.azzerial.shione.menus.EventWaiter;
 import net.dv8tion.jda.core.AccountType;
@@ -70,6 +72,7 @@ public class Shione {
 	private static void setupBot() {
 		try {
 			Settings settings = SettingsManager.getInstance().getSettings();
+			Database.getInstance();
 			
 			// Start the JDA api.
 			JDABuilder jda_builder = new JDABuilder(AccountType.BOT);

@@ -1,10 +1,11 @@
-package net.azzerial.shione.core;
+package net.azzerial.shione.database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import net.azzerial.shione.core.ShioneInfo;
 import net.dv8tion.jda.core.entities.User;
 
 public class Permissions {
@@ -22,6 +23,7 @@ public class Permissions {
 
 	private Permissions() {
 		ops = new ArrayList<String>();
+
 		try {
 			ResultSet opsSet = Database.getInstance().getStatement(GET_OPS).executeQuery();
 			while (opsSet.next()) {
@@ -31,7 +33,7 @@ public class Permissions {
 			e.printStackTrace();
 		}
 		if (ops.size() == 0) {
-			ops.add(ShioneInfo.BOT_AUTHOR_ID);
+			addOp(ShioneInfo.BOT_AUTHOR_ID);
 		}
 	}
 
@@ -42,7 +44,7 @@ public class Permissions {
 	}
 
 	public static Permissions getPermissions() {
-		return permissions;
+		return (permissions);
 	}
 
 	public static boolean addOp(String userId) {

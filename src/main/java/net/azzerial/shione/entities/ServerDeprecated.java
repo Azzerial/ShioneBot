@@ -14,14 +14,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import net.azzerial.shione.core.Permissions;
+import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.Role;
 
-public class Server {
+public class ServerDeprecated {
 	
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -39,7 +39,7 @@ public class Server {
 //	private List<String> scUsers;
 //	private List<String> bannedUsers;
 
-	public Server(String guildId) {
+	public ServerDeprecated(String guildId) {
 		this.guildId = guildId;
 		this.adminFile = new File("./Guilds/" + guildId).toPath().resolve("Admins.json");
 		this.channelsFile = new File("./Guilds/" + guildId).toPath().resolve("Channels.json");
@@ -72,8 +72,6 @@ public class Server {
 	
 	public void loadServerData() {
 		loadAdmin();
-//		loadChannels();
-//		loadSettings();
 	}
 	
 	public void loadAdmin() {		
@@ -86,30 +84,8 @@ public class Server {
 		}
 	}
 	
-	public void loadChannels() {
-		try {
-			BufferedReader reader = Files.newBufferedReader(channelsFile, StandardCharsets.UTF_8);
-			this.allowedChannels = gson.fromJson(reader, new TypeToken<ArrayList<TextChannel>>(){}.getType());
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void loadSettings() {
-		try {
-			BufferedReader reader = Files.newBufferedReader(settingsFile, StandardCharsets.UTF_8);
-			this.prefix = gson.fromJson(reader, new TypeToken<String>(){}.getType());
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void saveServerData() {
 		saveAdmin();
-//		saveChannels();
-//		saveSettings();
 	}
 	
 	public void saveAdmin() {
@@ -117,28 +93,6 @@ public class Server {
 
 		try {
 			BufferedWriter writer = Files.newBufferedWriter(adminFile, StandardCharsets.UTF_8);
-			writer.append(json);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void saveChannels() {
-		String json = gson.toJson(this.allowedChannels);
-		try {
-			BufferedWriter writer = Files.newBufferedWriter(channelsFile, StandardCharsets.UTF_8);
-			writer.append(json);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void saveSettings() {
-		String json = gson.toJson(this.prefix);
-		try {
-			BufferedWriter writer = Files.newBufferedWriter(settingsFile, StandardCharsets.UTF_8);
 			writer.append(json);
 			writer.close();
 		} catch (IOException e) {

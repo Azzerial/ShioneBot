@@ -1,4 +1,6 @@
-package net.azzerial.shione.core;
+package net.azzerial.shione.database;
+
+import net.azzerial.shione.core.ShioneInfo;
 
 import java.sql.*;
 
@@ -32,10 +34,50 @@ public class Database {
 			// Create the Ops table
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
 				"Ops(" +
-					"id TEXT," +
+					"id TEXT UNIQUE, " +
 					"PRIMARY KEY (id)" +
 				")");
-		/*
+			// Create the GuildDb
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
+				"Guilds(" +
+					"id TEXT UNIQUE, " +
+					"prefix TEXT NOT NULL DEFAULT '" + ShioneInfo.PREFIX + "', " +
+					"admins TEXT NOT NULL, " +
+					"users TEXT, " +
+					"roles TEXT, " +
+					"softbans TEXT, " +
+					"muted_channels TEXT, " +
+					"PRIMARY KEY (id)" +
+				")");
+
+			// Ops Statements
+			preparedStatements.put(Permissions.ADD_OP, connection.prepareStatement("INSERT INTO Ops (id) VALUES (?)"));
+			preparedStatements.put(Permissions.GET_OPS, connection.prepareStatement("SELECT id FROM Ops"));
+			preparedStatements.put(Permissions.REMOVE_OP, connection.prepareStatement("DELETE FROM Ops WHERE id = ?"));
+
+			// Guilds Statements
+			preparedStatements.put(GuildsManager.ADD_GUILD, connection.prepareStatement("INSERT INTO Guilds VALUES (?, ?, ?, ?, ?, ?, ?)"));
+			preparedStatements.put(GuildsManager.GET_GUILDS, connection.prepareStatement("SELECT * FROM Guilds"));
+			preparedStatements.put(GuildsManager.REMOVE_GUILD, connection.prepareStatement("DELETE FROM Guilds WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD, connection.prepareStatement("UPDATE Guilds SET ? = ? WHERE id = ?"));
+
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public PreparedStatement getStatement(String statementName) {
+		if (!preparedStatements.containsKey(statementName)) {
+			return (null);
+		}
+		return (preparedStatements.get(statementName));
+	}
+
+}
+
+/*
 			// Create the Guilds table
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
 				"Guilds(" +
@@ -67,23 +109,3 @@ public class Database {
 					"(3, '5435345345,5435342643,6722472472')"
 				);
 		*/
-			// Permissions Statements
-			preparedStatements.put(Permissions.ADD_OP, connection.prepareStatement("REPLACE INTO Ops (id) VALUES (?)"));
-			preparedStatements.put(Permissions.GET_OPS, connection.prepareStatement("SELECT id FROM Ops"));
-			preparedStatements.put(Permissions.REMOVE_OP, connection.prepareStatement("DELETE FROM Ops WHERE id = ?"));
-
-		} catch(SQLException e) {
-			e.printStackTrace();
-		} catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public PreparedStatement getStatement(String statementName) {
-		if (!preparedStatements.containsKey(statementName)) {
-			return (null);
-		}
-		return (preparedStatements.get(statementName));
-	}
-
-}

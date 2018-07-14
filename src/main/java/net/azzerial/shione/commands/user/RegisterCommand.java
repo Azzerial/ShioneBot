@@ -16,8 +16,8 @@ import com.google.gson.GsonBuilder;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
+import net.azzerial.shione.entities.AccountDeprecated;
 import net.azzerial.shione.menus.dialogs.VerficationDialog;
-import net.azzerial.shione.entities.Account;
 import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -29,13 +29,13 @@ public class RegisterCommand extends Command {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	private final File usersDir = new File("./Users");
-	private static List<Account> accounts;
+	private static List<AccountDeprecated> accounts;
 	
 	public RegisterCommand() {
 		if (!usersDir.exists()) {
 			usersDir.mkdirs();
 			System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Users folder created.");
-			accounts = new ArrayList<Account>();
+			accounts = new ArrayList<AccountDeprecated>();
 			return;
 		}
 		loadRegisteredAccounts();
@@ -117,7 +117,7 @@ public class RegisterCommand extends Command {
 		if (!isAccountAvailable(artist.getId())) {
 			User owner = event.getJDA().getUserById(getAccountForMixedId(artist.getId()).getDiscordId());
 			sendCommandMessage(channel, author, self, "This account has already been registered by `" + owner.getName() + "#" + owner.getDiscriminator() + "`!", colorError);
-			return ("!Account (" + permalink + ") is already owner by " + owner.getName() + "#" + owner.getDiscriminator() + ".");
+			return ("!AccountDeprecated (" + permalink + ") is already owner by " + owner.getName() + "#" + owner.getDiscriminator() + ".");
 		}
 		
 		VerficationDialog dBuilder = new VerficationDialog.Builder()
@@ -218,17 +218,17 @@ public class RegisterCommand extends Command {
 	}
 
 	private void loadRegisteredAccounts() {
-		List<Account> loadedAccounts = new ArrayList<Account>();
+		List<AccountDeprecated> loadedAccounts = new ArrayList<AccountDeprecated>();
 		
 		for (File userFile : usersDir.listFiles()) {
-			Path userAccountFile = userFile.toPath().resolve("Account.json");
+			Path userAccountFile = userFile.toPath().resolve("AccountDeprecated.json");
 			if (!userAccountFile.toFile().exists()) {
-				System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: 'Account.json' file is missing.");
+				System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: 'AccountDeprecated.json' file is missing.");
 				continue;
 			}
 			try {
 				BufferedReader reader = Files.newBufferedReader(userAccountFile, StandardCharsets.UTF_8);
-				loadedAccounts.add(gson.fromJson(reader, Account.class));
+				loadedAccounts.add(gson.fromJson(reader, AccountDeprecated.class));
 				reader.close();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -238,8 +238,8 @@ public class RegisterCommand extends Command {
 		System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Finished loading accounts files.");
 	}
 	
-	private static Account getAccountForMixedId(String id) {
-		for (Account acc : accounts) {
+	private static AccountDeprecated getAccountForMixedId(String id) {
+		for (AccountDeprecated acc : accounts) {
 			if (acc.getSoundCloudId().equals(id)
 			|| acc.getDiscordId().equals(id)) {
 				return (acc);
@@ -252,7 +252,7 @@ public class RegisterCommand extends Command {
 		if (accounts.isEmpty()) {
 			return (true);
 		}
-		for (Account acc : accounts) {
+		for (AccountDeprecated acc : accounts) {
 			if (acc.getSoundCloudId().equals(soundcloudId)) {
 				return (false);
 			}
@@ -264,8 +264,8 @@ public class RegisterCommand extends Command {
 		File userDir = new File("./Users/" + discordId);
 		userDir.mkdirs();
 
-		Account account = new Account(discordId, soundcloudId);
-		Path accountPath = userDir.toPath().resolve("Account.json");
+		AccountDeprecated account = new AccountDeprecated(discordId, soundcloudId);
+		Path accountPath = userDir.toPath().resolve("AccountDeprecated.json");
 		try {
 			BufferedWriter writer = Files.newBufferedWriter(accountPath, StandardCharsets.UTF_8);
 			writer.append(gson.toJson(account));
@@ -285,7 +285,7 @@ public class RegisterCommand extends Command {
 	
 	private boolean deleteUserAccount(String discordId) {
 		File userDir = new File("./Users/" + discordId);
-		Path accountPath = userDir.toPath().resolve("Account.json");
+		Path accountPath = userDir.toPath().resolve("AccountDeprecated.json");
 		
 		if (!accountPath.toFile().delete()) {
 			return (false);
@@ -300,7 +300,7 @@ public class RegisterCommand extends Command {
 	}
 	
 	public static boolean isRegistered(User user) {
-		if (new File("./Users/" + user.getId() + "/Account.json").exists()) {
+		if (new File("./Users/" + user.getId() + "/AccountDeprecated.json").exists()) {
 			return (true);
 		}
 		return (false);
