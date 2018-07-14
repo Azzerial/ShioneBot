@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
+import net.azzerial.shione.database.entities.Guilds;
+import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.listeners.GuildEvent;
 import net.azzerial.shione.utils.MessageUtil;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Message;
@@ -48,21 +49,25 @@ public abstract class Command extends ListenerAdapter {
 		if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) {
 			return;
 		}
-		if (containsCommand(event.getMessage()) && isOpRequired()) {
+		if (!GuildsManager.isGuildInDatabase(event.getGuild().getId())) {
+			GuildsManager.createNewDefaultGuild(event.getGuild().getId(), event.getGuild().getOwner().getUser().getId());
+		}
+		Guilds guild = GuildsManager.getGuild(event.getGuild().getId());
+		if (containsCommand(event.getMessage(), guild) && isOpRequired()) {
 			if (!Permissions.isOp(event.getAuthor())) {
 				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Op.");
 				sendMissingMessage(event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser(), true);
 				return;
 			}
 		}
-		if (containsCommand(event.getMessage()) && isAdminRequired()) {
-			if (!GuildEvent.getServer(event.getGuild().getId()).isAdmin(event.getAuthor())) {
+		if (containsCommand(event.getMessage(), guild) && isAdminRequired()) {
+			if (!GuildsManager.getGuild(event.getGuild().getId()).isAdmin(event.getAuthor())) {
 				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Admin.");
 				sendMissingMessage(event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser(), false);
 				return;
 			}
 		}
-		if (containsCommand(event.getMessage())) {
+		if (containsCommand(event.getMessage(), guild)) {
 			System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") executed the command.");
 			String output = onCommand(event, commandArgs(event.getMessage()), event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser());
 			System.out.println("[" + getName() + "]" +
@@ -70,11 +75,11 @@ public abstract class Command extends ListenerAdapter {
 		}
 	}
 	
-	protected boolean containsCommand(Message message) {
+	protected boolean containsCommand(Message message, Guilds guild) {
 		String string = commandArgs(message)[0];
 		
-		if (string.startsWith(ShioneInfo.PREFIX)) {
-			string = string.substring(ShioneInfo.PREFIX.length());
+		if (guild.isPrefix(string)) {
+			string = guild.getStringWithoutPrefix(string);
 		} else {
 			return (false);
 		}
@@ -88,7 +93,7 @@ public abstract class Command extends ListenerAdapter {
 	private void sendMissingMessage(TextChannel channel, User author, User self, boolean opCase) {
 		MessageUtil.sendEmbedMessage(channel, author, self,
 			getName(),
-			(opCase ? Permissions.OP_REQUIRED_MESSAGE : GuildEvent.ADMIN_REQUIRED_MESSAGE),
+			(opCase ? Permissions.OP_REQUIRED_MESSAGE : Permissions.ADMIN_REQUIRED_MESSAGE),
 			colorError);
 	}
 	

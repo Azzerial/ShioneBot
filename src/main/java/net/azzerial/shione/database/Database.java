@@ -59,7 +59,12 @@ public class Database {
 			preparedStatements.put(GuildsManager.ADD_GUILD, connection.prepareStatement("INSERT INTO Guilds VALUES (?, ?, ?, ?, ?, ?, ?)"));
 			preparedStatements.put(GuildsManager.GET_GUILDS, connection.prepareStatement("SELECT * FROM Guilds"));
 			preparedStatements.put(GuildsManager.REMOVE_GUILD, connection.prepareStatement("DELETE FROM Guilds WHERE id = ?"));
-			preparedStatements.put(GuildsManager.UPDATE_GUILD, connection.prepareStatement("UPDATE Guilds SET ? = ? WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD_ADMINS, connection.prepareStatement("UPDATE Guilds SET admins = ? WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD_CHANNELS, connection.prepareStatement("UPDATE Guilds SET muted_channels = ? WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD_PREFIX, connection.prepareStatement("UPDATE Guilds SET prefix = ? WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD_ROLES, connection.prepareStatement("UPDATE Guilds SET roles = ? WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD_SOFTBANS, connection.prepareStatement("UPDATE Guilds SET softbans = ? WHERE id = ?"));
+			preparedStatements.put(GuildsManager.UPDATE_GUILD_USERS, connection.prepareStatement("UPDATE Guilds SET users = ? WHERE id = ?"));
 
 		} catch(SQLException e) {
 			e.printStackTrace();

@@ -1,11 +1,12 @@
 package net.azzerial.shione.database;
 
+import net.azzerial.shione.core.ShioneInfo;
+import net.azzerial.shione.database.entities.Guilds;
 import net.azzerial.shione.utils.MiscUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ArrayList;
 
 public class GuildsManager {
@@ -13,7 +14,12 @@ public class GuildsManager {
 	public static final String ADD_GUILD = "ADD_GUILD";
 	public static final String GET_GUILDS = "GET_GUILDS";
 	public static final String REMOVE_GUILD = "REMOVE_GUILD";
-	public static final String UPDATE_GUILD = "UPDATE_GUILD";
+	public static final String UPDATE_GUILD_PREFIX = "UPDATE_GUILD_PREFIX";
+	public static final String UPDATE_GUILD_ADMINS = "UPDATE_GUILD_ADMINS";
+	public static final String UPDATE_GUILD_USERS = "UPDATE_GUILD_USERS";
+	public static final String UPDATE_GUILD_ROLES = "UPDATE_GUILD_ROLES";
+	public static final String UPDATE_GUILD_SOFTBANS = "UPDATE_GUILD_SOFTBANS";
+	public static final String UPDATE_GUILD_CHANNELS = "UPDATE_GUILD_CHANNELS";
 
 	private static GuildsManager guildsManager;
 	private static ArrayList<Guilds> guilds;
@@ -48,6 +54,17 @@ public class GuildsManager {
 
 	public static GuildsManager getGuildsManager() {
 		return (guildsManager);
+	}
+
+	public static boolean isGuildInDatabase(String id) {
+		if (getGuild(id) != null) {
+			return (true);
+		}
+		return (false);
+	}
+
+	public static boolean createNewDefaultGuild(String id, String ownerId) {
+		return (addGuild(new Guilds(id, ShioneInfo.PREFIX, ownerId, "", "", "", "")));
 	}
 
 	public static boolean addGuild(Guilds guild) {
@@ -92,19 +109,42 @@ public class GuildsManager {
 	}
 
 	public static boolean updateGuildColumn(String id, String column, String value) {
-		if (id == null || id.isEmpty()) {
+		if (id == null || id.isEmpty() || value == null) {
 			return (false);
 		}
 		Guilds guild = getGuild(id);
 		if (guild == null || column == null || column.isEmpty()) {
 			return (false);
 		}
+		String statementName = "";
+		switch (column) {
+			case (Guilds.ADMINS):
+				statementName = UPDATE_GUILD_ADMINS;
+				break;
+			case (Guilds.CHANNELS):
+				statementName = UPDATE_GUILD_CHANNELS;
+				break;
+			case (Guilds.PREFIX):
+				statementName = UPDATE_GUILD_PREFIX;
+				break;
+			case (Guilds.ROLES):
+				statementName = UPDATE_GUILD_ROLES;
+				break;
+			case (Guilds.SOFTBANS):
+				statementName = UPDATE_GUILD_SOFTBANS;
+				break;
+			case (Guilds.USERS):
+				statementName = UPDATE_GUILD_USERS;
+				break;
+		}
+		if (statementName.isEmpty()) {
+			return (false);
+		}
 
 		try {
-			PreparedStatement statement = Database.getInstance().getStatement(UPDATE_GUILD);
-			statement.setString(1, column);
-			statement.setString(2, value);
-			statement.setString(3, id);
+			PreparedStatement statement = Database.getInstance().getStatement(statementName);
+			statement.setString(1, value);
+			statement.setString(2, id);
 			if (statement.executeUpdate() == 1) {
 				return (updateGuildCache(id, column, value));
 			}

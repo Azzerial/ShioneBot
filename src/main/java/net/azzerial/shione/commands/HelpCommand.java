@@ -2,10 +2,10 @@ package net.azzerial.shione.commands;
 
 import java.util.*;
 
+import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.listeners.GuildEvent;
 import net.azzerial.shione.menus.dialogs.PageDialog;
 import net.azzerial.shione.utils.EmoteUtil;
 import net.azzerial.shione.utils.MessageUtil;
@@ -92,7 +92,7 @@ public class HelpCommand extends Command {
 			if (cmd.isOpRequired() && !Permissions.isOp(author)) {
 				continue;
 			}
-			if (cmd.isAdminRequired() && !GuildEvent.getServer(event.getGuild().getId()).isAdmin(author)) {
+			if (cmd.isAdminRequired() && !GuildsManager.getGuild(event.getGuild().getId()).isAdmin(author)) {
 				continue;
 			}
 			if (args[1].equalsIgnoreCase("help")) {
@@ -179,7 +179,7 @@ public class HelpCommand extends Command {
 			(funCommand.isEmpty() ? "" : "* [" + EmoteUtil.DIRECT_HIT + "] Fun\n") +
 			(musicCommand.isEmpty() ? "" : "* [" + EmoteUtil.HEADPHONE + "] Music\n") +
 			(userCommand.isEmpty() ? "" : "* [" + EmoteUtil.GEAR + "] User Settings\n") +
-			(GuildEvent.getServer(event.getGuild().getId()).isAdmin(author) ? (guildCommand.isEmpty() ? "" : "* [" + EmoteUtil.CLASSICAL_BUILDING + "] Guild Settings\n") : "") +
+			(GuildsManager.getGuild(event.getGuild().getId()).isAdmin(author) ? (guildCommand.isEmpty() ? "" : "* [" + EmoteUtil.CLASSICAL_BUILDING + "] Guild Settings\n") : "") +
 			(Permissions.isOp(author) ? (botCommand.isEmpty() ? "" : "* [" + EmoteUtil.ROBOT_FACE + "] Bot Settings\n") : "") +
 			"```\n" +
 			"__SubCommands:__\n" +
@@ -207,7 +207,7 @@ public class HelpCommand extends Command {
 		addCategoryPage(builder, EmoteUtil.DIRECT_HIT, categoriesTitles.get(FUN), funCommand, author ,self);
 		addCategoryPage(builder, EmoteUtil.HEADPHONE, categoriesTitles.get(MUSIC), musicCommand, author ,self);
 		addCategoryPage(builder, EmoteUtil.GEAR, categoriesTitles.get(USER_SETTINGS), userCommand, author ,self);
-		if (GuildEvent.getServer(event.getGuild().getId()).isAdmin(author)) {
+		if (GuildsManager.getGuild(event.getGuild().getId()).isAdmin(author)) {
 			addCategoryPage(builder, EmoteUtil.CLASSICAL_BUILDING, categoriesTitles.get(GUILD_SETTINGS), guildCommand, author ,self);
 		}
 		if (Permissions.isOp(author)) {

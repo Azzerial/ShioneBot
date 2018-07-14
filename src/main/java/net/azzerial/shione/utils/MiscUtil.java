@@ -9,7 +9,7 @@ public class MiscUtil {
 	public static String listToString(List<String> list, String separator) {
 		String str = "";
 
-		if (list.isEmpty()) {
+		if (list == null || list.isEmpty()) {
 			return (str);
 		}
 		for (String s : list) {
@@ -19,6 +19,9 @@ public class MiscUtil {
 	}
 
 	public static List<String> stringToList(String str, String separator) {
+		if (str == null || str.isEmpty()) {
+			return (new ArrayList<String>());
+		}
 		return (new ArrayList<String>(Arrays.asList(str.split(separator))));
 	}
 }

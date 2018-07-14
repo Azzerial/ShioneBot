@@ -20,8 +20,9 @@ import net.azzerial.shione.commands.user.RegisterCommand;
 import net.azzerial.shione.commands.guild.AdminCommand;
 import net.azzerial.shione.commands.guild.GuildCommand;
 import net.azzerial.shione.database.Database;
+import net.azzerial.shione.database.entities.Guilds;
+import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
-import net.azzerial.shione.listeners.GuildEvent;
 import net.azzerial.shione.menus.EventWaiter;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -100,7 +101,6 @@ public class Shione {
 			// Add event listeners.
 			waiter = new EventWaiter(Executors.newSingleThreadScheduledExecutor());
 			api.addEventListener(waiter);
-			api.addEventListener(new GuildEvent());
 			
 			// Start the SC2D api.
 			SC2DBuilder sc2d_builder = new SC2DBuilder(settings);
@@ -110,6 +110,12 @@ public class Shione {
 			Permissions.setupPermissions();
 			for (String op : Permissions.getOps()) {
 				System.out.println("Op: " + op);
+			}
+
+			// Load the Guilds data
+			GuildsManager.loadGuilds();
+			for (Guilds guild : GuildsManager.getGuilds()) {
+				System.out.println("Guild: " + guild.getId());
 			}
 
 		} catch (IllegalArgumentException e) {
@@ -158,5 +164,5 @@ public class Shione {
 			System.exit(UNSUPPORTED_SYSTEM);
 		}
 	}
-	
+
 }

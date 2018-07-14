@@ -7,7 +7,7 @@ import java.util.List;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.listeners.GuildEvent;
+import net.azzerial.shione.database.GuildsManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -25,7 +25,7 @@ public class AdminCommand extends Command {
 		
 		if (args.length == 2
 		&& args[1].equalsIgnoreCase("list")) {
-			List<String> admins = GuildEvent.getServer(event.getGuild().getId()).getAdmins();
+			List<String> admins = GuildsManager.getGuild(event.getGuild().getId()).getAdminsId();
 			Collections.sort(admins);
 			String admins_string = "";
 			
@@ -50,14 +50,14 @@ public class AdminCommand extends Command {
 				return ("!<Add> User fed an invalid paramater. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
-			if (!GuildEvent.getServer(event.getGuild().getId()).addAdmin(user.getId())) {
+			if (!GuildsManager.getGuild(event.getGuild().getId()).addAdmin(user.getId())) {
 				sendCommandMessage(channel, author, self, "`" + username + "` is already admin.", colorError);
 				return ("!<Add> " + user.getName() + " is already admin.");
 			}
 			sendCommandMessage(channel, author, self, "`" + username + "` has been added to the admins list.", colorCommand);
 			return ("<Add> " + user.getName() + " has been added to the admins list.");
 		}
-		
+
 		if (args.length == 3
 		&& args[1].equalsIgnoreCase("remove")) {
 			User user = null;
@@ -70,7 +70,7 @@ public class AdminCommand extends Command {
 				return ("!<Remove> User fed an invalid parameter. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
-			if (!GuildEvent.getServer(event.getGuild().getId()).removeAdmin(user.getId())) {
+			if (!GuildsManager.getGuild(event.getGuild().getId()).removeAdmin(user.getId())) {
 				if (event.getGuild().getOwner().getUser().getId().equals(user.getId())) {
 					sendCommandMessage(channel, author, self, "`" + username + "` is the guild's owner.\nYou can't remove him from the admins list.", colorError);
 					return ("!<Remove> User tried to remove the guild's owner from the admins list.");
@@ -82,7 +82,7 @@ public class AdminCommand extends Command {
 			sendCommandMessage(channel, author, self, "`" + username + "` has been removed from the admins' list.", colorCommand);
 			return ("<Remove> " + user.getName() + " has been removed from the admins' list.");
 		}
-		
+
 		sendSubCommandMessage(channel, author, self);
 		return ("!Unknown.");
 	}
