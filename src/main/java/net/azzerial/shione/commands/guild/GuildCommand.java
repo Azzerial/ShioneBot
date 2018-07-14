@@ -1,4 +1,4 @@
-package net.azzerial.shione.commandsguild;
+package net.azzerial.shione.commands.guild;
 
 import java.util.Arrays;
 import java.util.List;
