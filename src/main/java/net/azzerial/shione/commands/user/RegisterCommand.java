@@ -1,13 +1,6 @@
 package net.azzerial.shione.commands.user;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +9,8 @@ import com.google.gson.GsonBuilder;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.entities.AccountDeprecated;
+import net.azzerial.shione.database.UsersManager;
+import net.azzerial.shione.database.entities.Users;
 import net.azzerial.shione.menus.dialogs.VerficationDialog;
 import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.shione.utils.MessageUtil;
@@ -29,17 +23,6 @@ public class RegisterCommand extends Command {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	private final File usersDir = new File("./Users");
-	private static List<AccountDeprecated> accounts;
-	
-	public RegisterCommand() {
-		if (!usersDir.exists()) {
-			usersDir.mkdirs();
-			System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Users folder created.");
-			accounts = new ArrayList<AccountDeprecated>();
-			return;
-		}
-		loadRegisteredAccounts();
-	}
 	
 	@Override
 	public String onCommand(MessageReceivedEvent event, String[] args, TextChannel channel, User author, User self) {
@@ -47,8 +30,9 @@ public class RegisterCommand extends Command {
 			sendSubCommandMessage(channel, author, self);
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
-		
-		if (args[1].equalsIgnoreCase("unregister") && isRegistered(author)) {
+		Users user = UsersManager.getUser(author.getId());
+
+		if (args[1].equalsIgnoreCase("unregister") && user.isRegistered()) {
 			VerficationDialog dBuilder = new VerficationDialog.Builder()
 				.setEventWaiter(Shione.getEventWaiter())
 				.addUsers(author)
@@ -57,7 +41,7 @@ public class RegisterCommand extends Command {
 				.setTitle(getName())
 				.setDescription("Are you sure to unregister your current SoundCloud account? (An identity thief might steal it from you.)")
 				.setValidateAction(m -> {
-					deleteUserAccount(author.getId());
+					user.removeSoundCloudAccount();
 					m.clearReactions().queue();
 					MessageUtil.editEmbedMessage(m, author, self, getName(), "Your SoundCloud account has successfully been unregistered.", colorCommand);
 				})
@@ -70,7 +54,7 @@ public class RegisterCommand extends Command {
 			return ("!User hasn't registered yet.");
 		}
 		
-		if (isRegistered(author)) {
+		if (user.isRegistered()) {
 			sendCommandMessage(channel, author, self, "You have already registered!\n"
 				+ "If you want to change your account, you have to unregister to register again.\n"
 				+ "Type `./register` for more information.", colorError);
@@ -114,8 +98,8 @@ public class RegisterCommand extends Command {
 		}
 		Artist artist = Shione.getSC2DAPI().getArtistById(userId);
 		
-		if (!isAccountAvailable(artist.getId())) {
-			User owner = event.getJDA().getUserById(getAccountForMixedId(artist.getId()).getDiscordId());
+		if (!UsersManager.isSoundCloudAccountAvailable(artist.getId())) {
+			User owner = event.getJDA().getUserById(UsersManager.getUserFromSoundCloudId(artist.getId()).getId());
 			sendCommandMessage(channel, author, self, "This account has already been registered by `" + owner.getName() + "#" + owner.getDiscriminator() + "`!", colorError);
 			return ("!AccountDeprecated (" + permalink + ") is already owner by " + owner.getName() + "#" + owner.getDiscriminator() + ".");
 		}
@@ -136,9 +120,12 @@ public class RegisterCommand extends Command {
 				+ "__Followings:__ `" + artist.getFollowingsCount() + "`")
 			.setImage(artist.getVisualDefaultUrl())
 			.setValidateAction(m -> {
-				createUserDatabase(author.getId(), artist.getId());
 				m.clearReactions().queue();
-				MessageUtil.editEmbedMessage(m, author, self, getName(), "You have registered [" + artist.getUsername() + "](" + artist.getPermalinkUrl() + ") as your SoundCloud account.", colorCommand);
+				if (user.addSoundCloudAccount(artist)) {
+					MessageUtil.editEmbedMessage(m, author, self, getName(), "You have registered [" + artist.getUsername() + "](" + artist.getPermalinkUrl() + ") as your SoundCloud account.", colorCommand);
+				} else {
+					MessageUtil.editEmbedMessage(m, author, self, getName(), "An error has occurred while trying to register your account.", colorError);
+				}
 			})
 			.build();
 		dBuilder.display(channel);
@@ -217,98 +204,4 @@ public class RegisterCommand extends Command {
 		return (false);
 	}
 
-	private void loadRegisteredAccounts() {
-		List<AccountDeprecated> loadedAccounts = new ArrayList<AccountDeprecated>();
-		
-		for (File userFile : usersDir.listFiles()) {
-			Path userAccountFile = userFile.toPath().resolve("AccountDeprecated.json");
-			if (!userAccountFile.toFile().exists()) {
-				System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: 'AccountDeprecated.json' file is missing.");
-				continue;
-			}
-			try {
-				BufferedReader reader = Files.newBufferedReader(userAccountFile, StandardCharsets.UTF_8);
-				loadedAccounts.add(gson.fromJson(reader, AccountDeprecated.class));
-				reader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		accounts = loadedAccounts;
-		System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Finished loading accounts files.");
-	}
-	
-	private static AccountDeprecated getAccountForMixedId(String id) {
-		for (AccountDeprecated acc : accounts) {
-			if (acc.getSoundCloudId().equals(id)
-			|| acc.getDiscordId().equals(id)) {
-				return (acc);
-			}
-		}
-		return (null);
-	}
-	
-	private boolean isAccountAvailable(String soundcloudId) {
-		if (accounts.isEmpty()) {
-			return (true);
-		}
-		for (AccountDeprecated acc : accounts) {
-			if (acc.getSoundCloudId().equals(soundcloudId)) {
-				return (false);
-			}
-		}
-		return (true);
-	}
-	
-	private void createUserDatabase(String discordId, String soundcloudId) {
-		File userDir = new File("./Users/" + discordId);
-		userDir.mkdirs();
-
-		AccountDeprecated account = new AccountDeprecated(discordId, soundcloudId);
-		Path accountPath = userDir.toPath().resolve("AccountDeprecated.json");
-		try {
-			BufferedWriter writer = Files.newBufferedWriter(accountPath, StandardCharsets.UTF_8);
-			writer.append(gson.toJson(account));
-			accounts.add(account);
-			writer.close();
-			System.out.println(ShioneInfo.getTime() + "[Command/RegisterCommand]: Linked "
-				+ Shione.getSC2DAPI().getArtistById(soundcloudId).getPermalinkUrl()
-				+ " to ["
-				+ Shione.getAPI().getUserById(discordId).getName()
-				+ "]("
-				+ Shione.getAPI().getUserById(discordId).getId()
-				+ ").");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private boolean deleteUserAccount(String discordId) {
-		File userDir = new File("./Users/" + discordId);
-		Path accountPath = userDir.toPath().resolve("AccountDeprecated.json");
-		
-		if (!accountPath.toFile().delete()) {
-			return (false);
-		}
-		for (int i = 0; i < accounts.size(); i += 1) {
-			if (accounts.get(i).getDiscordId().equals(discordId)) {
-				accounts.remove(i);
-				return (true);
-			}
-		}
-		return (false);
-	}
-	
-	public static boolean isRegistered(User user) {
-		if (new File("./Users/" + user.getId() + "/AccountDeprecated.json").exists()) {
-			return (true);
-		}
-		return (false);
-	}
-	
-	public static Artist getUserSoundCloudArtist(User user) {
-		String soundcloudId = getAccountForMixedId(user.getId()).getSoundCloudId();
-		
-		return (Shione.getSC2DAPI().getArtistById(soundcloudId));
-	}
 }

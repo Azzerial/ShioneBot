@@ -8,6 +8,7 @@ import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.commands.user.RegisterCommand;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
+import net.azzerial.shione.database.UsersManager;
 import net.azzerial.shione.menus.dialogs.PageDialog;
 import net.azzerial.sc2d.entities.enums.AvatarFormat;
 import net.azzerial.sc2d.entities.Artist;
@@ -37,11 +38,11 @@ public class WhoisCommand extends Command {
 		}
 		User user = (!event.getMessage().getMentionedUsers().isEmpty() ? (event.getMessage().getMentionedUsers().get(0)) : (event.getGuild().getMembersByEffectiveName(searchedUser,true).get(0).getUser()));
 
-		if (!RegisterCommand.isRegistered(author)) {
+		if (!UsersManager.getUser(author.getId()).isRegistered()) {
 			sendCommandMessage(channel, author, self, "You need to register in order to user this commands.", colorError);
 			return ("!User wasn't registered.");
 		}
-		if (!RegisterCommand.isRegistered(user)) {
+		if (!UsersManager.getUser(user.getId()).isRegistered()) {
 			if (event.getGuild().isMember(user)) {
 				sendCommandMessage(channel, author, self, "`" + event.getGuild().getMember(user).getEffectiveName() + "` isn't registered.", colorError);
 			} else {
@@ -49,7 +50,7 @@ public class WhoisCommand extends Command {
 			}
 			return ("!Mentioned user wasn't registered.");
 		}
-		Artist artist = RegisterCommand.getUserSoundCloudArtist(user);
+		Artist artist = UsersManager.getArtistByUser(user);
 		
 		PageDialog dialog = new PageDialog.Builder()
 			.setEventWaiter(Shione.getEventWaiter())
@@ -175,7 +176,7 @@ public class WhoisCommand extends Command {
 		String day = (artist.getCreationDate().get(Calendar.DAY_OF_MONTH) < 10 ? "0" : "") + artist.getCreationDate().get(Calendar.DAY_OF_MONTH);
 		String month = (artist.getCreationDate().get(Calendar.MONTH) < 10 ? "0" : "") + (artist.getCreationDate().get(Calendar.MONTH) + 1);
 		String year = "" + artist.getCreationDate().get(Calendar.YEAR);
-		description += "__Member since:__ `" + day + "/" + month + "/" + year + "` (DD/MM/YYYY)\n\n";
+		description += "__Member since:__ `" + day + "/" + month + "/" + year + "` (DMY)\n\n";
 		description += "__Description:__\n```\n" + (artist.getDescription() == null ? "" : artist.getDescription()) + "\n```";
 		return (description);
 	}

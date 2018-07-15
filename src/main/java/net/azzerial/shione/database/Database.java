@@ -34,20 +34,32 @@ public class Database {
 			// Create the Ops table
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
 				"Ops(" +
-					"id TEXT UNIQUE, " +
+					"id TEXT NOT NULL UNIQUE, " +
 					"PRIMARY KEY (id)" +
 				")");
-			// Create the GuildDb
+			// Create the Guilds table
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
 				"Guilds(" +
-					"id TEXT UNIQUE, " +
-					"prefix TEXT NOT NULL DEFAULT '" + ShioneInfo.PREFIX + "', " +
+					"id TEXT NOT NULL UNIQUE, " +
+					"prefix TEXT NOT NULL, " +
 					"admins TEXT NOT NULL, " +
 					"users TEXT, " +
 					"roles TEXT, " +
 					"softbans TEXT, " +
 					"muted_channels TEXT, " +
 					"PRIMARY KEY (id)" +
+				")");
+			// Create the Users table
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
+				"Users(" +
+					"id TEXT NOT NULL UNIQUE, " +
+					"soundcloud_id TEXT NOT NULL UNIQUE, " +
+					"soundcloud_permalink TEXT NOT NULL UNIQUE, " +
+					"guilds TEXT, " +
+					"softbans TEXT, " +
+					"currency REAL DEFAULT 0, " +
+					"requests REAL DEFAULT 0, " +
+					"PRIMARY KEY (id, soundcloud_id)" +
 				")");
 
 			// Ops Statements
@@ -66,6 +78,17 @@ public class Database {
 			preparedStatements.put(GuildsManager.UPDATE_GUILD_SOFTBANS, connection.prepareStatement("UPDATE Guilds SET softbans = ? WHERE id = ?"));
 			preparedStatements.put(GuildsManager.UPDATE_GUILD_USERS, connection.prepareStatement("UPDATE Guilds SET users = ? WHERE id = ?"));
 
+			// Users Statements
+			preparedStatements.put(UsersManager.ADD_USER, connection.prepareStatement("INSERT INTO Users VALUES (?, ?, ?, ?, ?, ?, ?)"));
+			preparedStatements.put(UsersManager.GET_USERS, connection.prepareStatement("SELECT * FROM Users"));
+			preparedStatements.put(UsersManager.REMOVE_USERS, connection.prepareStatement("DELETE FROM Users WHERE id = ?"));
+			preparedStatements.put(UsersManager.UPDATE_USERS_CURRENCY, connection.prepareStatement("UPDATE Users SET currency = ? WHERE id = ?"));
+			preparedStatements.put(UsersManager.UPDATE_USERS_GUILDS, connection.prepareStatement("UPDATE Users SET guilds = ? WHERE id = ?"));
+			preparedStatements.put(UsersManager.UPDATE_USERS_REQUESTS, connection.prepareStatement("UPDATE Users SET requests = ? WHERE id = ?"));
+			preparedStatements.put(UsersManager.UPDATE_USERS_SOFTBANS, connection.prepareStatement("UPDATE Users SET softbans = ? WHERE id = ?"));
+			preparedStatements.put(UsersManager.UPDATE_USERS_SOUNDCLOUD_ID, connection.prepareStatement("UPDATE Users SET soundcloud_id = ? WHERE id = ?"));
+			preparedStatements.put(UsersManager.UPDATE_USERS_SOUNDCLOUD_PERMALINK, connection.prepareStatement("UPDATE Users SET soundcloud_permalink = ? WHERE id = ?"));
+
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} catch(ClassNotFoundException e) {
@@ -81,36 +104,3 @@ public class Database {
 	}
 
 }
-
-/*
-			// Create the Guilds table
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
-				"Guilds(" +
-					"id INTEGER," +
-					"PRIMARY KEY (id)" +
-				")");
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
-				"GuildAdmins(" +
-					"guild_id INTEGER," +
-					"list TEXT NOT NULL," +
-					"PRIMARY KEY (guild_id)," +
-					"FOREIGN KEY (guild_id) REFERENCES Guilds(id) " +
-						"ON UPDATE NO ACTION " +
-						"ON DELETE CASCADE" +
-				")");
-			statement.executeUpdate("REPLACE INTO Guilds (" +
-					"id)" +
-				"VALUES " +
-					"(1)," +
-					"(2)," +
-					"(3)"
-				);
-			statement.executeUpdate("REPLACE INTO GuildAdmins (" +
-					"guild_id," +
-					"list)" +
-				"VALUES " +
-					"(1, '1231425215,3123123312,3124214432')," +
-					"(2, '3243245325,2432454353,4324325325')," +
-					"(3, '5435345345,5435342643,6722472472')"
-				);
-		*/

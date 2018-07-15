@@ -6,7 +6,6 @@
 /bin/
 /build/
 /out/
-/Users/
 .classpath
 .project
 *.class
@@ -15,3 +14,4 @@
 *.lock
 *.properties
 *.json
+*.db

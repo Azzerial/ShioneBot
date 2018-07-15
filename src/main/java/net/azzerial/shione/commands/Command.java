@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
+import net.azzerial.shione.database.UsersManager;
 import net.azzerial.shione.database.entities.Guilds;
 import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
@@ -46,13 +47,20 @@ public abstract class Command extends ListenerAdapter {
 
 	@Override
 	public void onMessageReceived(MessageReceivedEvent event) {
+		// Check if the message's author isn't a bot and if the message was sent in a guild.
 		if (event.getAuthor().isBot() || !event.isFromType(ChannelType.TEXT)) {
 			return;
 		}
+		// Check if the guild is in the database. If not, adds it.
 		if (!GuildsManager.isGuildInDatabase(event.getGuild().getId())) {
 			GuildsManager.createNewDefaultGuild(event.getGuild().getId(), event.getGuild().getOwner().getUser().getId());
 		}
 		Guilds guild = GuildsManager.getGuild(event.getGuild().getId());
+		// Check if the author is in the database. If not, adds him.
+		if (!UsersManager.isUserInDatabase(event.getAuthor().getId())) {
+			UsersManager.createNewDefaultUser(event.getAuthor().getId());
+		}
+		// Check if the command requires Op permissions to be ran. If it's the case, check if the author has the right permissions.
 		if (containsCommand(event.getMessage(), guild) && isOpRequired()) {
 			if (!Permissions.isOp(event.getAuthor())) {
 				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Op.");
@@ -60,6 +68,7 @@ public abstract class Command extends ListenerAdapter {
 				return;
 			}
 		}
+		// Check if the command requires Admin permissions to be ran. If it's the case, check if the author has the right permissions.
 		if (containsCommand(event.getMessage(), guild) && isAdminRequired()) {
 			if (!GuildsManager.getGuild(event.getGuild().getId()).isAdmin(event.getAuthor())) {
 				System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") tried to run the command but wasn't Admin.");
@@ -67,6 +76,7 @@ public abstract class Command extends ListenerAdapter {
 				return;
 			}
 		}
+		// Check if the command exists and run it.
 		if (containsCommand(event.getMessage(), guild)) {
 			System.out.println(ShioneInfo.getTime() + "[" + getName() + "]: [" + event.getAuthor().getName() + "](" + event.getAuthor().getId() + ") executed the command.");
 			String output = onCommand(event, commandArgs(event.getMessage()), event.getTextChannel(), event.getAuthor(), event.getJDA().getSelfUser());

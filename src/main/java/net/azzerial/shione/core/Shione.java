@@ -21,8 +21,10 @@ import net.azzerial.shione.commands.guild.AdminCommand;
 import net.azzerial.shione.commands.guild.GuildCommand;
 import net.azzerial.shione.database.Database;
 import net.azzerial.shione.database.entities.Guilds;
+import net.azzerial.shione.database.entities.Users;
 import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
+import net.azzerial.shione.database.UsersManager;
 import net.azzerial.shione.menus.EventWaiter;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -108,14 +110,23 @@ public class Shione {
 			
 			// Set the Ops list.
 			Permissions.setupPermissions();
+			System.out.println("Permissions Ops:");
 			for (String op : Permissions.getOps()) {
-				System.out.println("Op: " + op);
+				System.out.println("\t- " + api.getUserById(op).getName() + " (" + op + ")");
 			}
 
 			// Load the Guilds data
 			GuildsManager.loadGuilds();
+			System.out.println("Guilds Cache:");
 			for (Guilds guild : GuildsManager.getGuilds()) {
-				System.out.println("Guild: " + guild.getId());
+				System.out.println("\t- " + api.getGuildById(guild.getId()).getName() + " (" + guild.getId() + ")");
+			}
+
+			// Load the Users data
+			UsersManager.loadUsers();
+			System.out.println("Users Cache:");
+			for (Users user : UsersManager.getUsers()) {
+				System.out.println("\t" + (user.isRegistered() ? "®" : "-") + " " + api.getUserById(user.getId()).getName() + " (" + user.getId() + ")");
 			}
 
 		} catch (IllegalArgumentException e) {
