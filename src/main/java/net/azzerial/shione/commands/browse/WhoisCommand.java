@@ -5,9 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import net.azzerial.shione.commands.Command;
-import net.azzerial.shione.commands.user.RegisterCommand;
 import net.azzerial.shione.core.Shione;
-import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.database.UsersManager;
 import net.azzerial.shione.menus.dialogs.PageDialog;
 import net.azzerial.sc2d.entities.enums.AvatarFormat;

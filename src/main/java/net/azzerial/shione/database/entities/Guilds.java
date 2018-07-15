@@ -1,17 +1,12 @@
 package net.azzerial.shione.database.entities;
 
 import net.azzerial.shione.core.ShioneInfo;
-import net.azzerial.shione.database.Database;
 import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.utils.MiscUtil;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Guilds {

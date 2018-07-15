@@ -5,7 +5,6 @@ import java.util.*;
 import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.core.Shione;
-import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.menus.dialogs.PageDialog;
 import net.azzerial.shione.utils.EmoteUtil;
 import net.azzerial.shione.utils.MessageUtil;

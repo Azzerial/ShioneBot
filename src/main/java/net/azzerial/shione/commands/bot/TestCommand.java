@@ -3,7 +3,6 @@ package net.azzerial.shione.commands.bot;
 import java.util.Arrays;
 import java.util.List;
 import net.azzerial.shione.commands.Command;
-import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.utils.EmoteUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;

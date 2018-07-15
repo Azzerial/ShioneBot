@@ -3,8 +3,6 @@ package net.azzerial.shione.database.entities;
 import net.azzerial.sc2d.entities.Artist;
 import net.azzerial.shione.database.UsersManager;
 import net.azzerial.shione.utils.MiscUtil;
-import net.dv8tion.jda.core.entities.User;
-
 import java.util.List;
 
 public class Users {

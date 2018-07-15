@@ -1,6 +1,5 @@
 package net.azzerial.shione.database;
 
-import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.database.entities.Guilds;
 import net.azzerial.shione.utils.MiscUtil;
 

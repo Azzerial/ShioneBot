@@ -1,6 +1,5 @@
 package net.azzerial.shione.commands.user;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 

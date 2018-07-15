@@ -7,7 +7,6 @@ import java.util.List;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.entities.Guilds;
-import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -26,8 +25,6 @@ public class GuildCommand extends Command {
 		if (!subcommands.contains(args[1])) {
 			return (UNKNOWN_CASE);
 		}
-
-		JDA api = event.getJDA();
 
 	// Prefix
 		// View prefix
@@ -98,9 +95,6 @@ public class GuildCommand extends Command {
 				return ("<listroles> There are no roles set.");
 			} else {
 				Collections.sort(roles);
-
-				System.out.println("size: " + roles.size());
-
 				for (String role : roles) {
 					System.out.println("role: "+ role);
 					roles_string += "`" + event.getGuild().getRoleById(role).getName() + "`, ";

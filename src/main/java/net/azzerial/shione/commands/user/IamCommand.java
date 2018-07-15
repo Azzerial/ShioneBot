@@ -1,15 +1,14 @@
 package net.azzerial.shione.commands.user;
 
 import net.azzerial.shione.commands.Command;
-import net.azzerial.shione.core.ShioneInfo;
+import net.azzerial.shione.core.Shione;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.utils.PermissionUtil;
-
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class IamCommand extends Command {
@@ -67,7 +66,11 @@ public class IamCommand extends Command {
 
 	@Override
 	public String getDescription() {
-		return ("**Use this commands in order to get a role in this guild.**");
+		return ("**Use this commands in order to get a role in this guild.**\n\n" +
+			"__Free Roles:__\n" +
+			"```md\n" +
+			getFreeRolesList() +
+			"```");
 	}
 
 	@Override
@@ -108,6 +111,20 @@ public class IamCommand extends Command {
 	@Override
 	public boolean isOpRequired() {
 		return (false);
+	}
+
+	private String getFreeRolesList() {
+		List<String> roles = guild.getFreeRolesId();
+		String roles_string = "";
+		if (roles == null || roles.isEmpty() || roles.size() == 0) {
+			return ("\n");
+		}
+		Collections.sort(roles);
+
+		for (String role : roles) {
+			roles_string += "* " + Shione.getAPI().getGuildById(guild.getId()).getRoleById(role).getName() + "\n";
+		}
+		return (roles_string);
 	}
 
 }

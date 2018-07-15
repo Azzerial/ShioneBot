@@ -6,7 +6,6 @@ import java.util.List;
 
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
-import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.database.GuildsManager;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.TextChannel;
