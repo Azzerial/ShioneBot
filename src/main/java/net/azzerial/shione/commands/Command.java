@@ -21,12 +21,15 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public abstract class Command extends ListenerAdapter {
 
 	public String INVALID_AMOUNT_OF_AGRUMENTS = "!Amount of arguments was incorrect. Showing SubCommands page.";
-	public String UNKNOWN = "!Unknown command return.";
+	public String DATABASE_ERROR = "!Something unexpected happened when modifying the database.";
+	public String UNKNOWN_CASE = "!Unknown command return.";
 	
 	public static Color colorInformation = new Color(77, 195, 255); //LIGHT BLUE
 	public static Color colorCommand = new Color(255, 102, 179); //PINK
 	public static Color colorError = new Color(255, 128, 128); //LIGHT RED
-	
+
+	protected Guilds guild;
+
 	public abstract String onCommand(MessageReceivedEvent event, String[] args, TextChannel channel, User author, User self);
 	public abstract List<String> getAliases();
 	public abstract String getDescription();
@@ -55,7 +58,7 @@ public abstract class Command extends ListenerAdapter {
 		if (!GuildsManager.isGuildInDatabase(event.getGuild().getId())) {
 			GuildsManager.createNewDefaultGuild(event.getGuild().getId(), event.getGuild().getOwner().getUser().getId());
 		}
-		Guilds guild = GuildsManager.getGuild(event.getGuild().getId());
+		guild = GuildsManager.getGuild(event.getGuild().getId());
 		// Check if the author is in the database. If not, adds him.
 		if (!UsersManager.isUserInDatabase(event.getAuthor().getId())) {
 			UsersManager.createNewDefaultUser(event.getAuthor().getId());
@@ -106,8 +109,8 @@ public abstract class Command extends ListenerAdapter {
 			(opCase ? Permissions.OP_REQUIRED_MESSAGE : Permissions.ADMIN_REQUIRED_MESSAGE),
 			colorError);
 	}
-	
-	public String getSubCommandsCodeBlock() {
+
+	protected String getSubCommandsCodeBlock() {
 		String string = "__SubCommands:__\n```md\n";
 		
 		for (String subCommand : getSubCommands()) {
@@ -116,8 +119,8 @@ public abstract class Command extends ListenerAdapter {
 		string += "```";
 		return (string);
 	}
-	
-	public String getUsageExamplesBlock() {
+
+	protected String getUsageExamplesBlock() {
 		String string = "__Examples:__\n";
 		
 		for (String usageExample : getUsageExamples()) {
@@ -125,8 +128,8 @@ public abstract class Command extends ListenerAdapter {
 		}
 		return (string);
 	}
-	
-	public String getAliasesBlock() {
+
+	protected String getAliasesBlock() {
 		String string = "__Aliases:__\n";
 		List<String> aliases = getAliases();
 		
@@ -138,8 +141,8 @@ public abstract class Command extends ListenerAdapter {
 		string += ".";
 		return (string);
 	}
-	
-	public void sendSubCommandMessage(MessageChannel channel, User author, User self) {
+
+	protected void sendSubCommandMessage(MessageChannel channel, User author, User self) {
 		MessageUtil.sendEmbedMessage(channel,
 			getName(), null, self.getAvatarUrl(),
 			null,
@@ -149,8 +152,8 @@ public abstract class Command extends ListenerAdapter {
 			"Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
 			colorInformation);
 	}
-	
-	public void sendCommandMessage(MessageChannel channel, User author, User self, String content, Color color) {
+
+	protected void sendCommandMessage(MessageChannel channel, User author, User self, String content, Color color) {
 		MessageUtil.sendEmbedMessage(channel,
 			getName(), null, self.getAvatarUrl(),
 			null,
@@ -159,5 +162,9 @@ public abstract class Command extends ListenerAdapter {
 			null,
 			"Requested by " + author.getName() + "#" + author.getDiscriminator() + ".", author.getAvatarUrl(),
 			color);
+	}
+
+	protected String guildPrefix() {
+		return (guild.getEffectivePrefix());
 	}
 }

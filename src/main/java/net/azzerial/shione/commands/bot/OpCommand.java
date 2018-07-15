@@ -128,9 +128,9 @@ public class OpCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "op list` - View the actual ops.",
-			"`" + ShioneInfo.PREFIX + "op add @Shione` - Adds Shione to the ops list.",
-			"`" + ShioneInfo.PREFIX + "op remove @Shione` - Removes Shione from the ops list."
+			"`" + guildPrefix() + "op list` - View the actual ops.",
+			"`" + guildPrefix() + "op add @Shione` - Adds Shione to the ops list.",
+			"`" + guildPrefix() + "op remove @Shione` - Removes Shione from the ops list."
 		));
 	}
 

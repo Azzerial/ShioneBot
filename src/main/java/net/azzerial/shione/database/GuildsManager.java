@@ -63,7 +63,7 @@ public class GuildsManager {
 	}
 
 	public static boolean createNewDefaultGuild(String id, String ownerId) {
-		return (addGuild(new Guilds(id, ShioneInfo.PREFIX, ownerId, "", "", "", "")));
+		return (addGuild(new Guilds(id, "", ownerId, "", "", "", "")));
 	}
 
 	public static boolean addGuild(Guilds guild) {
@@ -196,4 +196,7 @@ public class GuildsManager {
 		return ((ArrayList<Guilds>) guildsCache.clone());
 	}
 
+	public static String getEffectivePrefix(String guildId) {
+		return (getGuild(guildId).getEffectivePrefix());
+	}
 }

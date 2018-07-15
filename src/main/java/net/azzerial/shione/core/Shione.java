@@ -16,6 +16,7 @@ import net.azzerial.shione.commands.bot.OpCommand;
 import net.azzerial.shione.commands.bot.ShutdownCommand;
 import net.azzerial.shione.commands.bot.TestCommand;
 import net.azzerial.shione.commands.browse.WhoisCommand;
+import net.azzerial.shione.commands.user.IamCommand;
 import net.azzerial.shione.commands.user.RegisterCommand;
 import net.azzerial.shione.commands.guild.AdminCommand;
 import net.azzerial.shione.commands.guild.GuildCommand;
@@ -91,6 +92,7 @@ public class Shione {
 			jda_builder.addEventListener(command.registerCommand(new AdminCommand()));
 			jda_builder.addEventListener(command.registerCommand(new EvalCommand()));
 			jda_builder.addEventListener(command.registerCommand(new GuildCommand()));
+			jda_builder.addEventListener(command.registerCommand(new IamCommand()));
 			jda_builder.addEventListener(command.registerCommand(new OpCommand()));
 			jda_builder.addEventListener(command.registerCommand(new RegisterCommand()));
 			jda_builder.addEventListener(command.registerCommand(new ShutdownCommand()));

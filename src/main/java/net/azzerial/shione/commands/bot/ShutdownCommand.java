@@ -96,7 +96,7 @@ public class ShutdownCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "shutdown` - Shuts down the bot."
+			"`" + guildPrefix() + "shutdown` - Shuts down the bot."
 		));
 	}
 

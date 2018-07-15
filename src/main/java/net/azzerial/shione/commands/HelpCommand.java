@@ -152,8 +152,8 @@ public class HelpCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "help` - Shows Shione's commands help page.",
-			"`" + ShioneInfo.PREFIX + "help register` - Shows the register command's help page."
+			"`" + guildPrefix() + "help` - Shows Shione's commands help page.",
+			"`" + guildPrefix() + "help register` - Shows the register command's help page."
 		));
 	}
 

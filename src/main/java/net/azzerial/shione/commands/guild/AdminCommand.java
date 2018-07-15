@@ -47,7 +47,7 @@ public class AdminCommand extends Command {
 			}
 			if (user == null) {
 				sendCommandMessage(channel, author, self, "`" + args[2] + "` isn't a valid parameter.", colorError);
-				return ("!<Add> User fed an invalid paramater. (" + args[2] + ")");
+				return ("!<Add> User fed is an invalid paramater. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
 			if (!GuildsManager.getGuild(event.getGuild().getId()).addAdmin(user.getId())) {
@@ -67,7 +67,7 @@ public class AdminCommand extends Command {
 			}
 			if (user == null) {
 				sendCommandMessage(channel, author, self, "`" + args[2] + "` isn't a valid parameter.", colorError);
-				return ("!<Remove> User fed an invalid parameter. (" + args[2] + ")");
+				return ("!<Remove> User fed is an invalid parameter. (" + args[2] + ")");
 			}
 			String username = event.getGuild().getMember(user).getEffectiveName();
 			if (!GuildsManager.getGuild(event.getGuild().getId()).removeAdmin(user.getId())) {
@@ -127,9 +127,9 @@ public class AdminCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "admin list` - View the list of the bot's admins of this server.",
-			"`" + ShioneInfo.PREFIX + "admin add @Shione` - Adds Shione to the list of the bot's admins of this server.",
-			"`" + ShioneInfo.PREFIX + "admin remove @Shione` - Removes Shione from the list of the bot's admins of this server."
+			"`" + guildPrefix() + "admin list` - View the list of the bot's admins of this server.",
+			"`" + guildPrefix() + "admin add @Shione` - Adds Shione to the list of the bot's admins of this server.",
+			"`" + guildPrefix() + "admin remove @Shione` - Removes Shione from the list of the bot's admins of this server."
 		));
 	}
 

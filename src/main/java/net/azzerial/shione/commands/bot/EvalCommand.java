@@ -146,8 +146,8 @@ public class EvalCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "eval return (\"\" + 2 + 2);` - Writes 4 in the channel.",
-			"`" + ShioneInfo.PREFIX + "eval return (\"\" + self.getName());` - Writes Shione in the channel."
+			"`" + guildPrefix() + "eval return (\"\" + 2 + 2);` - Writes 4 in the channel.",
+			"`" + guildPrefix() + "eval return (\"\" + self.getName());` - Writes Shione in the channel."
 		));
 	}
 

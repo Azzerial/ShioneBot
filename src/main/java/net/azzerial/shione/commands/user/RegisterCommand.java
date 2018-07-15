@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import net.azzerial.shione.commands.Command;
 import net.azzerial.shione.core.Shione;
 import net.azzerial.shione.core.ShioneInfo;
@@ -19,10 +17,6 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 public class RegisterCommand extends Command {
-
-	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-	private final File usersDir = new File("./Users");
 	
 	@Override
 	public String onCommand(MessageReceivedEvent event, String[] args, TextChannel channel, User author, User self) {
@@ -78,7 +72,6 @@ public class RegisterCommand extends Command {
 		 * and use it as a permalink instead if it isn't.
 		 *
 		 */
-
 		String permalink = "";
 		if (!link.startsWith("https://soundcloud.com/")) {
 			if (!link.startsWith("https://")) {
@@ -90,8 +83,7 @@ public class RegisterCommand extends Command {
 		}else {
 			permalink = link.substring(23);
 		}
-		String userId = null;
-		userId = Shione.getSC2DAPI().getArtistIdFromPermalink(permalink);
+		String userId = Shione.getSC2DAPI().getArtistIdFromPermalink(permalink);
 		if (userId == null) {
 			sendCommandMessage(channel, author, self, "This user doesn't exist!", colorError);
 			return ("!User doesn't exists.");
@@ -188,9 +180,9 @@ public class RegisterCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "register https://soundcloud.com/alexis` - Links *Alexis Fellenius* SoundCloud account to your Discord account.",
-			"`" + ShioneInfo.PREFIX + "register kovenuk` - registers the Account from `https://soundcloud.com/kovenuk` to your Discord Account",
-            "`" + ShioneInfo.PREFIX + "register unregister` - Unregisters *Alexis Fellenius* SoundCloud account from your account."
+			"`" + guildPrefix() + "register https://soundcloud.com/alexis` - Links *Alexis Fellenius* SoundCloud account to your Discord account.",
+			"`" + guildPrefix() + "register alexis` - Registers your SoundCloud account by permalink (end of the url).",
+			"`" + guildPrefix() + "register unregister` - Unregisters *Alexis Fellenius* SoundCloud account from your account."
 		));
 	}
 

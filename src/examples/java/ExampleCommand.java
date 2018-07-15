@@ -146,7 +146,7 @@ public class ExampleCommand extends Command { // All commands must extend the Co
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "greet @Azzerial` - Sends a greeting message in the channel for *Azzerial*."
+			"`" + guildPrefix() + "greet @Azzerial` - Sends a greeting message in the channel for *Azzerial*."
 		));
 	}
 

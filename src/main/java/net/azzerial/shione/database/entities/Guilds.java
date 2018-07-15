@@ -5,6 +5,7 @@ import net.azzerial.shione.database.Database;
 import net.azzerial.shione.database.GuildsManager;
 import net.azzerial.shione.database.Permissions;
 import net.azzerial.shione.utils.MiscUtil;
+import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 
 import java.sql.PreparedStatement;
@@ -48,7 +49,11 @@ public class Guilds {
 		}
 
 		String newAdminsList = MiscUtil.listToString(adminsId, ",");
-		newAdminsList += "," + userId;
+		if (newAdminsList.isEmpty()) {
+			newAdminsList = userId;
+		} else {
+			newAdminsList += "," + userId;
+		}
 		return (GuildsManager.updateGuildColumn(id, ADMINS, newAdminsList));
 	}
 
@@ -62,6 +67,52 @@ public class Guilds {
 		return (GuildsManager.updateGuildColumn(id, ADMINS, newAdminsList));
 	}
 
+	public boolean isAdmin(User user) {
+		if (Permissions.isOp(user)
+			|| adminsId.contains(user.getId())) {
+			return (true);
+		}
+		return (false);
+	}
+
+	public boolean addFreeRole(String roleId) {
+		if (freeRolesId.contains(roleId)) {
+			return (false);
+		}
+
+		String newRolesList = MiscUtil.listToString(freeRolesId, ",");
+		if (newRolesList.isEmpty()) {
+			newRolesList = roleId;
+		} else {
+			newRolesList += "," + roleId;
+		}
+		return (GuildsManager.updateGuildColumn(id, ROLES, newRolesList));
+	}
+
+	public boolean removeFreeRole(String roleId) {
+		if (!freeRolesId.contains(roleId)) {
+			return (false);
+		}
+
+		freeRolesId.remove(roleId);
+		String newRolesList = MiscUtil.listToString(freeRolesId, ",");
+		return (GuildsManager.updateGuildColumn(id, ROLES, newRolesList));
+	}
+
+	public boolean isFreeRole(Role role) {
+		if (freeRolesId.contains(role.getId())) {
+			return (true);
+		}
+		return (false);
+	}
+
+	public String getEffectivePrefix() {
+		if (prefix == null || prefix.isEmpty()) {
+			return (ShioneInfo.PREFIX);
+		}
+		return (prefix);
+	}
+
 	public String getStringWithoutPrefix(String str) {
 		if (str.startsWith(prefix)) {
 			return (str.substring(prefix.length()));
@@ -71,14 +122,6 @@ public class Guilds {
 		return (null);
 	}
 
-	public boolean isAdmin(User user) {
-		if (Permissions.isOp(user)
-			|| adminsId.contains(user.getId())) {
-			return (true);
-		}
-		return (false);
-	}
-
 	public boolean isPrefix(String str) {
 		if (str.startsWith(prefix)
 			|| str.startsWith(ShioneInfo.PREFIX)) {
@@ -86,7 +129,6 @@ public class Guilds {
 		}
 		return (false);
 	}
-
 
 	// --- Getters ---
 

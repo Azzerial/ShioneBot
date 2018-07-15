@@ -142,7 +142,7 @@ public class WhoisCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "whois @Azzerial` - Displays *Azzerial*'s SoundCloud account in the channel."
+			"`" + guildPrefix() + "whois @Azzerial` - Displays *Azzerial*'s SoundCloud account in the channel."
 		));
 	}
 

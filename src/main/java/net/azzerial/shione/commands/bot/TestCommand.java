@@ -125,7 +125,7 @@ public class TestCommand extends Command {
 	@Override
 	public List<String> getUsageExamples() {
 		return (Arrays.asList(
-			"`" + ShioneInfo.PREFIX + "test` - Unleashes unicorns."
+			"`" + guildPrefix() + "test` - Unleashes unicorns."
 		));
 	}
 
