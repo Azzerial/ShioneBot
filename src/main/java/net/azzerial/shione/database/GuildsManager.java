@@ -1,5 +1,6 @@
 package net.azzerial.shione.database;
 
+import net.azzerial.shione.core.ShioneInfo;
 import net.azzerial.shione.database.entities.Guilds;
 import net.azzerial.shione.utils.MiscUtil;
 
@@ -62,7 +63,7 @@ public class GuildsManager {
 	}
 
 	public static boolean createNewDefaultGuild(String id, String ownerId) {
-		return (addGuild(new Guilds(id, "", ownerId, "", "", "", "")));
+		return (addGuild(new Guilds(id, ShioneInfo.PREFIX, ownerId, "", "", "", "")));
 	}
 
 	public static boolean addGuild(Guilds guild) {
