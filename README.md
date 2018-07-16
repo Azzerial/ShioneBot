@@ -1,4 +1,4 @@
 # ShioneBot
-![send me a message if you find this](https://discordbots.org/api/widget/status/153129618096783360.svg)
+![discordbots](https://discordbots.org/api/widget/status/290901616201302016.svg)
 
-This repository contains all the source code of the Discord ShioneBot.
+Shione is a Discord bot created to bring SoundCloud data and statistics to Discord.
