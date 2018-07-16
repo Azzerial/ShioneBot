@@ -51,8 +51,8 @@ public class Database {
 			statement.executeUpdate("CREATE TABLE IF NOT EXISTS " +
 				"Users(" +
 					"id TEXT NOT NULL UNIQUE, " +
-					"soundcloud_id TEXT NOT NULL UNIQUE, " +
-					"soundcloud_permalink TEXT NOT NULL UNIQUE, " +
+					"soundcloud_id TEXT, " +
+					"soundcloud_permalink TEXT, " +
 					"guilds TEXT, " +
 					"softbans TEXT, " +
 					"currency REAL DEFAULT 0, " +

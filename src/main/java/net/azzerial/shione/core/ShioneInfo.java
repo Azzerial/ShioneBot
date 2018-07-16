@@ -25,7 +25,7 @@ public class ShioneInfo {
 	public static final String BOT_AUTHOR = "Azzerial#5348";
 	public static final String BOT_AUTHOR_ID = "153129618096783360";
 	public static final String BOT_NAME = "Shione";
-	public static final float BOT_VERSION = 0.1f;
+	public static final float BOT_VERSION = 1.0f;
 	public static final String PREFIX = "./";
 	
 	// Jar file infos
