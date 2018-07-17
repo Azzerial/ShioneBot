@@ -23,9 +23,9 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.8.0-beta2'
     // Gson for Json files.
     implementation 'com.google.code.gson:gson:2.8.5'
-    // Apache Commons.io
+    // Apache Commons.io.
     compile group: 'commons-io', name: 'commons-io', version: '2.0.1'
-    // SQLite
+    // SQLite.
     compile 'org.xerial:sqlite-jdbc:3.20.0'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.

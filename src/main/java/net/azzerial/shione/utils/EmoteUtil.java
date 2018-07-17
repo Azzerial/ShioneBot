@@ -5,7 +5,13 @@ public class EmoteUtil {
 // --- CHOICES	
 	public static final String CHECK_MARK = "✅";
 	public static final String CROSS_MARK = "❌";
-	
+
+// --- BROWSING
+	public static final String PLAY = "▶";
+	public static final String FAST_FORWARD = "⏩";
+	public static final String FAST_REVERSE = "⏪";
+	public static final String REVERSE = "◀";
+
 // --- INFOS
 	public static final String BAR_CHART = "📊";
 	public static final String EYE_IN_SPEECH_BUBBLE = "\uD83D\uDD0D";

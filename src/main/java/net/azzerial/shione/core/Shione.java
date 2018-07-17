@@ -77,7 +77,7 @@ public class Shione {
 		try {
 			Settings settings = SettingsManager.getInstance().getSettings();
 			Database.getInstance();
-			
+
 			// Start the JDA api.
 			JDABuilder jda_builder = new JDABuilder(AccountType.BOT);
 			jda_builder.setToken(settings.getBotToken());

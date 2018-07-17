@@ -2,6 +2,7 @@ package net.azzerial.shione.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class MiscUtil {
@@ -24,4 +25,11 @@ public class MiscUtil {
 		}
 		return (new ArrayList<String>(Arrays.asList(str.split(separator))));
 	}
+
+	public static class sortIgnoreCase implements Comparator<String> {
+		public int compare(String str1, String str2) {
+			return (str1.toLowerCase().compareTo(str2.toLowerCase()));
+		}
+	}
+
 }

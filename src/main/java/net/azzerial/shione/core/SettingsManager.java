@@ -80,7 +80,7 @@ public class SettingsManager {
 		new_settings.setSoundcloudAppVersion("");
 		new_settings.setAudioEnabled(false);
 		new_settings.setAutoReconnected(false);
-		new_settings.setGame(GameType.DEFAULT, ShioneInfo.BOT_NAME + " v" + ShioneInfo.BOT_VERSION + " - Created by " + ShioneInfo.BOT_AUTHOR);
+		new_settings.setGame(GameType.DEFAULT, ShioneInfo.PREFIX + "help " + ShioneInfo.BOT_NAME + " v" + ShioneInfo.BOT_VERSION + " & SC2D v" + ShioneInfo.SC2D_VERSION +  " - Created by " + ShioneInfo.BOT_AUTHOR);
 		new_settings.setStatus(OnlineStatus.ONLINE);
 		return (new_settings);
 	}

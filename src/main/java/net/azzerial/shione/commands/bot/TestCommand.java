@@ -1,9 +1,13 @@
 package net.azzerial.shione.commands.bot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.azzerial.shione.commands.Command;
+import net.azzerial.shione.core.Shione;
+import net.azzerial.shione.menus.dialogs.ListDialog;
 import net.azzerial.shione.utils.EmoteUtil;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -16,7 +20,28 @@ public class TestCommand extends Command {
 			return (INVALID_AMOUNT_OF_AGRUMENTS);
 		}
 
-		sendCommandMessage(channel, author, self, EmoteUtil.ROBOT_FACE, colorCommand);
+		List<String> items = new ArrayList<String>();
+		event.getTextChannel().getIterableHistory().forEach(m -> items.add(m.getId()));
+
+		ListDialog dialog = new ListDialog.Builder()
+			.setEventWaiter(Shione.getEventWaiter())
+			.addUsers(author)
+			.setAuthor(author)
+			.setSelf(self)
+			.setTitle("Test")
+			.setDescription("List of the users in this guild:")
+			.setEmptyItemsListDescription("There are no users in this guild. :c")
+			.showPageNumber(true)
+			.showItemNumber(true)
+			.enablePageSkip(true)
+			.setPageSkipAmount(5)
+			.orderItems(false)
+			.setItemsPerPage(20)
+			.setItems(items)
+			.setColor(colorInformation)
+			.build();
+		dialog.display(channel);
+
 		/*
 		Track t = Shione.getSC2DAPI().getTrackById(args[1]);
 

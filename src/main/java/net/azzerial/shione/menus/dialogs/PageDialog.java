@@ -93,7 +93,7 @@ public class PageDialog extends EmbedMenu {
 				return (canUserInteract(event.getUser(), event.getGuild()));
 			},
 			(MessageReactionAddEvent event) -> {
-				if (!pages.keySet().contains(event.getReactionEmote().getName())) {
+				if (!emotes.contains(event.getReactionEmote().getName())) {
 					return;
 				}
 				pages.get(event.getReactionEmote().getName()).accept(message, event.getReactionEmote());
